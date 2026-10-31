@@ -84,7 +84,7 @@ export const RECIPES=[
         "key": "cereal",
         "name": "Cereal",
         "amount": 0.25,
-        "unit": "cup"
+        "unit": "cup cereal"
       }
     ],
     "steps": [
@@ -288,7 +288,7 @@ export const RECIPES=[
         "key": "bread",
         "name": "Bread",
         "amount": 2,
-        "unit": "slices"
+        "unit": "slices of bread"
       }
     ],
     "steps": [
@@ -387,7 +387,7 @@ export const RECIPES=[
         "key": "cereal",
         "name": "Cereal",
         "amount": 0.25,
-        "unit": "cup"
+        "unit": "cup cereal"
       }
     ],
     "steps": [
@@ -499,7 +499,7 @@ export const RECIPES=[
         "key": "cereal",
         "name": "Cereal",
         "amount": 0.25,
-        "unit": "cup"
+        "unit": "cup cereal"
       },
       {
         "key": "pretzels",
@@ -579,7 +579,7 @@ export const RECIPES=[
         "key": "bread",
         "name": "Bread",
         "amount": 2,
-        "unit": "slices"
+        "unit": "slices of bread"
       },
       {
         "key": "avocado",
@@ -838,7 +838,7 @@ export const RECIPES=[
         "key": "bread",
         "name": "Bread",
         "amount": 2,
-        "unit": "slices"
+        "unit": "slices of bread"
       },
       {
         "key": "pb",
@@ -925,7 +925,7 @@ export const RECIPES=[
         "key": "cereal",
         "name": "Cereal",
         "amount": 0.25,
-        "unit": "cup"
+        "unit": "cup cereal"
       },
       {
         "key": "marshmallows",
@@ -1703,7 +1703,7 @@ export const RECIPES=[
         "key": "cereal",
         "name": "Cereal",
         "amount": 0.25,
-        "unit": "cup"
+        "unit": "cup cereal"
       },
       {
         "key": "pretzels",
