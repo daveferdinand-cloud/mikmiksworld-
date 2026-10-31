@@ -27,4 +27,8 @@ The cloud browser did not expose an operating-system print dialog. The print act
 
 ## Release target
 
-Existing project `mikmiksworld` (`prj_iSJeQLYWgtoR16SWTJqE3Slzv38a`) in team `team_7A0t2DxRJHsNVUZ9tmuBzA8m`. `mikmiksworld.com` is verified on this project. No new hosting project or domain migration is required. Production promotion and post-release verification are recorded separately after completion.
+Existing project `mikmiksworld` (`prj_iSJeQLYWgtoR16SWTJqE3Slzv38a`) in team `team_7A0t2DxRJHsNVUZ9tmuBzA8m`. `mikmiksworld.com` is verified on this project. No new hosting project or domain migration is required. Production deployment `dpl_BeaDMuQ5qFyJuJ4sXh9A7e2Mrjis` is READY from commit `1c9484a1a6cc3a80f197174cbc3329806445553f`. Vercel assigned `mikmiksworld.com` and `www.mikmiksworld.com` successfully. The public domain was opened in a fresh browser tab and the redesigned homepage and full studio were confirmed.
+
+Final no-overflow measurements on the verified runtime: phone content/viewport 375/375 px; tablet 753/753 px (390/768 px frames less scrollbars). The rotated decorative backdrop was corrected at its source. The production build excludes the preview-only viewport harness.
+
+No DNS or hosting project change was made. The direct promotion endpoint returned 422, so the same verified commit was built with the existing project’s standard production target. Runtime source is identical to the verified preview.
