@@ -1,0 +1,1589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>Mika's World — Draw it. Craft it. Write it. Cook it (no oven). Sing it.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Work+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============ ONE PALETTE, DEFINED ONCE — dark plum on warm cream, always ============ */
+:root{
+  --cream:#FFF9F1; --paper:#FFFDF8; --blush:#F7E3E0; --blush-deep:#F0D2CE;
+  --ink:#33182B;            /* headlines + body — 13.5:1 on cream */
+  --ink-soft:#5E4453;       /* secondary text — 7.6:1 on cream */
+  --cherry:#A91E38;         /* accent — 7.1:1 on cream */
+  --pink:#B85C78; --gold:#8A6D1F; --line:#E7D5C8;
+  --plum-deep:#2E1229; --plum-burg:#4A1F33;
+  --cream-on-dark:#FFF3E2; --soft-on-dark:#F3D9CF;
+  --serif:"Playfair Display",Georgia,serif; --sans:"Work Sans",system-ui,sans-serif; --hand:"Caveat",cursive;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);background:var(--cream);color:var(--ink);overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--serif);color:var(--ink);margin:0;line-height:1.08;font-weight:600}
+p{margin:0}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;color:inherit}
+::selection{background:var(--blush-deep);color:var(--ink)}
+:focus-visible{outline:3px solid var(--cherry);outline-offset:2px}
+
+/* ============ THE ONE NAV SYSTEM — a calm top bar, present on every view ============ */
+.topbar{position:sticky;top:0;z-index:60;background:rgba(255,249,241,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1140px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px}
+.home-mark{flex:none;background:none;border:none;font-family:var(--serif);font-weight:700;font-size:1.22rem;color:var(--ink);padding:6px 4px;letter-spacing:.01em}
+.home-mark .bow{color:var(--cherry)}
+.topnav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.topnav::-webkit-scrollbar{display:none}
+.topnav button{flex:none;background:none;border:none;font-family:var(--sans);font-weight:600;font-size:.9rem;color:var(--ink-soft);padding:8px 11px;border-radius:999px;white-space:nowrap}
+.topnav button:hover{color:var(--ink);background:var(--blush)}
+.topnav button[aria-current="true"]{color:var(--ink);background:var(--blush);box-shadow:inset 0 0 0 1.5px var(--pink)}
+
+/* ============ VIEWS ============ */
+.view{display:none}
+.view.active{display:block;animation:enter .55s cubic-bezier(.2,.8,.25,1)}
+@keyframes enter{from{opacity:0;transform:scale(.992) translateY(10px)}to{opacity:1;transform:none}}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+
+/* ============ LANDING ============ */
+.hero{padding:44px 0 8px}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:44px;align-items:center}
+.kicker{font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cherry)}
+.hero h1{font-size:clamp(3.4rem,8.5vw,6rem);letter-spacing:-.01em;margin:.35rem 0 .4rem;position:relative;animation:nameglow 7.5s ease-in-out infinite}
+.hero h1 .world{color:var(--cherry)}
+@keyframes nameglow{0%,100%{text-shadow:0 0 0 rgba(238,183,140,0)}50%{text-shadow:0 0 20px rgba(238,183,140,.5),0 0 44px rgba(240,190,160,.25)}}
+.name-sheen{position:absolute;inset:0;color:transparent;-webkit-text-fill-color:transparent;background:linear-gradient(105deg,rgba(255,228,185,0) 42%,rgba(255,232,196,.95) 50%,rgba(255,228,185,0) 58%);background-size:280% 100%;background-position:130% 0;-webkit-background-clip:text;background-clip:text;animation:sheenpass 9.5s ease-in-out infinite;pointer-events:none}
+@keyframes sheenpass{0%{background-position:130% 0}16%{background-position:-35% 0}100%{background-position:-35% 0}}
+.hero-petals{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.petal{position:absolute;top:-4%;display:block;background:linear-gradient(135deg,#F7CAD2,#EEA3B5);border-radius:90% 4px 90% 4px;box-shadow:inset 0 0 4px rgba(255,255,255,.55);will-change:transform,opacity}
+.petal.lit{background:linear-gradient(135deg,#FBE3DF,#F4BCC9)}
+.tagline{font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,1.65rem);font-weight:600;color:var(--ink)}
+.hero-sub{margin-top:.8rem;font-size:1.02rem;line-height:1.55;color:var(--ink-soft);max-width:30rem;font-weight:500}
+.hero-scene{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 30px 60px rgba(51,24,43,.22);max-width:470px;width:100%;justify-self:end}
+.hero-bows{position:absolute;inset:0;z-index:2;pointer-events:none;transition:transform .5s cubic-bezier(.2,.8,.25,1)}
+.float-bow{position:absolute;display:block;animation:bowdrift var(--dur,10s) ease-in-out var(--delay,0s) infinite alternate;filter:drop-shadow(0 3px 6px rgba(51,24,43,.18))}
+.float-bow svg{display:block;width:100%;height:auto}
+@keyframes bowdrift{from{transform:translate3d(0,-9px,0) rotate(-5deg)}to{transform:translate3d(7px,11px,0) rotate(6deg)}}
+.hero-scene img{width:100%;height:auto;animation:breathe 9s ease-in-out infinite}
+.hero-scene::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px 200px at 78% 4%,rgba(255,214,150,.5),transparent 65%);animation:lightdrift 17s ease-in-out infinite alternate}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
+@keyframes lightdrift{from{opacity:.45;transform:translateX(-14px)}to{opacity:.95;transform:translateX(14px)}}
+.hand-note{font-family:var(--hand);font-size:1.5rem;font-weight:700;color:var(--ink);background:rgba(240,210,206,.75);display:inline-block;padding:.05em .6em;transform:rotate(-1.6deg);border-radius:3px;margin-top:16px}
+
+/* music panel — the landing's one big action besides the doors */
+.music-panel{margin-top:26px;background:linear-gradient(120deg,var(--plum-deep),var(--plum-burg) 78%);border-radius:20px;padding:22px 24px;color:var(--cream-on-dark);max-width:560px;box-shadow:0 22px 44px rgba(46,18,41,.35)}
+.music-panel h2{color:var(--cream-on-dark);font-size:1.55rem}
+.music-panel .mp-sub{color:var(--soft-on-dark);font-weight:500;font-size:.93rem;margin-top:.3rem}
+.mp-row{display:flex;align-items:center;gap:12px;width:100%;margin-top:12px;background:rgba(255,243,226,.08);border:1.5px solid rgba(255,243,226,.35);border-radius:14px;padding:11px 14px;color:var(--cream-on-dark);text-align:left;transition:background .15s}
+.mp-row:hover{background:rgba(255,243,226,.16)}
+.mp-row .mp-play{flex:none;width:38px;height:38px;border-radius:50%;background:var(--cream-on-dark);color:var(--plum-deep);display:grid;place-items:center;font-size:1rem;font-weight:700;animation:playbreathe 5.4s ease-in-out infinite}
+@keyframes playbreathe{0%,100%{transform:scale(1);box-shadow:0 0 0 rgba(255,214,170,0)}50%{transform:scale(1.05);box-shadow:0 0 14px rgba(255,214,170,.35)}}
+.mp-row b{font-family:var(--serif);font-size:1.12rem;display:block;line-height:1.15}
+.mp-row span{font-size:.82rem;color:var(--soft-on-dark);font-weight:600}
+.mp-frame{margin-top:14px;display:none}
+.mp-frame.open{display:block}
+.mp-frame iframe{width:100%;height:200px;border:0;border-radius:12px;display:block}
+.mp-stop{display:none;margin-top:12px;background:none;border:1.5px solid rgba(255,243,226,.5);color:var(--cream-on-dark);border-radius:999px;font-weight:700;padding:.5rem 1.1rem}
+.mp-stop.show{display:inline-block}
+.mp-watch{display:none;margin-top:12px;margin-left:14px;color:var(--soft-on-dark);font-weight:700;font-size:.92rem}
+.mp-watch.show{display:inline-block}
+.stage-watch{display:none;margin-top:12px;color:var(--soft-on-dark);font-weight:700}
+.stage-watch.show{display:inline-block}
+
+/* doors — painted vignettes cut from the places' own paintings */
+.doors{padding:64px 0 10px}
+.doors-head{max-width:620px}
+.doors-head h2{font-size:clamp(2rem,4.6vw,2.9rem);margin-top:.4rem}
+.doors-head p{margin-top:.55rem;color:var(--ink-soft);font-weight:500;font-size:1.02rem;line-height:1.55}
+.door-grid{position:relative;display:flex;flex-direction:column;gap:44px;margin-top:44px;max-width:780px}
+.door-grid::before{content:"";position:absolute;top:-6px;bottom:-6px;left:50%;transform:translateX(-50%);width:0;border-left:5px dotted #DCC49C;opacity:.85}
+.door{width:min(330px,82%);position:relative;z-index:1}
+.door:nth-child(even){align-self:flex-end}
+.door:nth-child(odd){align-self:flex-start}
+.door::after{content:"";position:absolute;top:44%;width:14px;height:14px;border-radius:50%;background:var(--blush-deep);border:3px solid var(--pink)}
+.door:nth-child(odd)::after{right:-52px}
+.door:nth-child(even)::after{left:-52px}
+.door{background:none;border:none;padding:0;text-align:left;border-radius:16px;transition:transform .25s cubic-bezier(.2,.8,.25,1)}
+.door:hover{transform:translateY(-5px)}
+.door .door-img{border-radius:16px;overflow:hidden;box-shadow:0 16px 32px rgba(51,24,43,.18);aspect-ratio:4/3}
+.door .door-img img{width:100%;height:100%;object-fit:cover;object-position:center 22%;transition:transform .5s ease}
+.door:hover .door-img img{transform:scale(1.05)}
+.door b{display:block;font-family:var(--serif);font-size:1.22rem;font-weight:600;color:var(--ink);margin-top:.65rem}
+.door span{display:block;font-size:.88rem;color:var(--ink-soft);font-weight:600;margin-top:.15rem}
+.door .door-go{color:var(--cherry);font-weight:700;font-size:.88rem;margin-top:.3rem}
+
+/* closing scene — composed in the flow, clear of everything */
+.closing{padding:70px 0 56px}
+.closing-scene{border-radius:22px;overflow:hidden;box-shadow:0 30px 60px rgba(51,24,43,.2)}
+.closing-scene img{width:100%;height:min(54vw,470px);object-fit:cover;object-position:center 16%}
+.closing-text{text-align:center;max-width:560px;margin:30px auto 0}
+.closing-text h2{font-size:clamp(1.8rem,4vw,2.5rem)}
+.closing-text p{margin-top:.5rem;color:var(--ink-soft);font-weight:500;line-height:1.55}
+footer{padding:26px 20px 40px;text-align:center;border-top:1px solid var(--line)}
+footer p{font-size:.88rem;color:var(--ink-soft);font-weight:600}
+
+/* ============ PLACES — one scene, one headline, one action ============ */
+.place{padding:34px 0 70px}
+.place-head{display:grid;grid-template-columns:1fr 400px;gap:44px;align-items:center;margin-bottom:8px}
+.place-scene{border-radius:20px;overflow:hidden;box-shadow:0 24px 48px rgba(51,24,43,.18)}
+.place-scene img{width:100%;height:auto;animation:breathe 10s ease-in-out infinite}
+.place-head h2{font-size:clamp(2.2rem,5.4vw,3.4rem);margin:.55rem 0 .5rem}
+.place-sub{font-size:1.05rem;line-height:1.6;color:var(--ink-soft);font-weight:500;max-width:32rem}
+.era-tag{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:.4rem .8rem;border-radius:3px;transform:rotate(-1deg)}
+.spot-row{display:flex;align-items:center;gap:14px;margin-top:20px}
+.spot-row img{width:64px;height:64px;border-radius:50%;object-fit:cover;box-shadow:0 8px 18px rgba(51,24,43,.22)}
+.spot-row .hand-note{margin-top:0}
+.body-block{margin-top:38px}
+.body-block > h3{font-size:1.6rem;margin-bottom:.4rem}
+.body-block > .block-sub{color:var(--ink-soft);font-weight:500;line-height:1.55;max-width:38rem;margin-bottom:20px}
+
+/* buttons — verb + outcome, always */
+.btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:999px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);font-weight:700;font-size:.98rem;padding:.62rem 1.3rem;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,box-shadow .12s;text-decoration:none}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn-cherry{background:var(--cherry);border-color:var(--ink);color:#FFF6EC}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
+.btn:disabled{opacity:.4;box-shadow:none;transform:none;cursor:default}
+.chip{border:2px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:999px;font-weight:600;font-size:.9rem;padding:.42rem .95rem;transition:background .12s}
+.chip[aria-pressed="true"],.chip[aria-selected="true"]{background:var(--ink);color:var(--cream)}
+
+/* sketch lessons */
+.lesson-tabs,.craft-tabs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:22px}
+.sketch-layout{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+.sketch-stage{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;background-image:radial-gradient(rgba(184,92,120,.16) 1.4px,transparent 1.5px);background-size:24px 24px}
+.sketch-stage svg{width:100%;height:auto;display:block}
+.step-kicker{font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cherry)}
+.sketch-side h4{font-size:1.45rem;margin:.35rem 0 .45rem}
+.sketch-side p{color:var(--ink-soft);font-weight:500;line-height:1.6}
+.sketch-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.done-msg{display:none;margin-top:16px;font-family:var(--hand);font-size:1.5rem;font-weight:700;color:var(--ink);background:rgba(240,210,206,.75);padding:.15em .6em;transform:rotate(-1.2deg);border-radius:3px}
+.done-msg.show{display:inline-block}
+
+/* drawing board */
+.art-tools{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:16px}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.swatch{width:36px;height:36px;border-radius:50%;border:2.5px solid var(--ink);padding:0}
+.swatch[aria-pressed="true"]{transform:scale(1.22);outline:2.5px solid var(--ink);outline-offset:2px}
+.brush-dot{border-radius:50%;background:var(--ink);border:none;padding:0;vertical-align:middle}
+.canvas-frame{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;background-image:radial-gradient(rgba(184,92,120,.14) 1.4px,transparent 1.5px);background-size:24px 24px}
+#artCanvas{display:block;width:100%;height:auto;touch-action:none;cursor:crosshair}
+
+/* craft ideas + house crafts */
+.idea-note{background:var(--paper);border:1px solid var(--line);border-radius:6px 18px 6px 18px;box-shadow:0 18px 36px rgba(51,24,43,.12);padding:28px 30px;max-width:640px;transform:rotate(-.6deg)}
+.idea-note h3{font-size:1.8rem;margin-bottom:.4rem}
+.idea-note p{color:var(--ink-soft);font-weight:500;line-height:1.6}
+.idea-note .need{margin-top:.7rem;font-weight:700;color:var(--ink);font-size:.95rem}
+.craft-layout{display:grid;grid-template-columns:300px 1fr;gap:30px;align-items:start}
+.materials{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.materials h4{font-size:1.1rem;margin-bottom:.6rem}
+.materials ul{margin:0;padding-left:1.1rem;color:var(--ink-soft);font-weight:500;display:grid;gap:.4rem;line-height:1.45}
+.step-box h4{font-size:1.55rem;margin:.35rem 0 .5rem}
+.step-box p{color:var(--ink-soft);font-weight:500;line-height:1.65;max-width:34rem;font-size:1.02rem}
+.step-nav{display:flex;align-items:center;gap:16px;margin-top:22px;flex-wrap:wrap}
+.dots{display:flex;gap:7px}
+.dots span{width:11px;height:11px;border-radius:50%;border:2px solid var(--ink)}
+.dots span.on{background:var(--cherry)}
+
+/* story centre — an open book */
+.open-book{background:linear-gradient(90deg,#FFFDF6 0 49.3%,#EADFC8 49.8%,#DCCBA6 50.2%,#FFFDF6 50.7%);border-radius:8px 22px 22px 8px;box-shadow:0 24px 44px rgba(51,24,43,.14);padding:30px 34px}
+.spark-line{display:flex;flex-wrap:wrap;gap:9px;align-items:center;font-weight:600;color:var(--ink)}
+.spark-line .slot{background:var(--blush);border-radius:8px;padding:.32rem .8rem;font-family:var(--serif);font-weight:600}
+.field{margin-top:20px}
+.field label{display:block;font-family:var(--serif);font-weight:600;font-size:1.08rem;margin-bottom:.45rem}
+.field input[type="text"],.field textarea{width:100%;border:2px solid var(--line);border-radius:12px;padding:.75rem 1rem;font-size:1rem;font-weight:500;background:#fff;color:var(--ink);outline:none;font-family:var(--sans)}
+.field input[type="text"]:focus,.field textarea:focus{border-color:var(--pink);box-shadow:3px 3px 0 var(--blush-deep)}
+.field textarea{resize:vertical;min-height:130px;line-height:1.6}
+.word-count{font-size:.88rem;font-weight:600;color:var(--ink-soft);margin-top:.4rem}
+.ceremony{display:none;margin-top:26px;text-align:center;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:30px 24px;box-shadow:0 22px 44px rgba(51,24,43,.14)}
+.ceremony.show{display:block;animation:enter .5s ease}
+.ceremony .stamp{display:inline-block;border:3px solid var(--cherry);color:var(--cherry);font-family:var(--serif);font-weight:700;letter-spacing:.14em;padding:.4rem 1rem;border-radius:6px;transform:rotate(-3deg);text-transform:uppercase;font-size:.85rem}
+.ceremony h3{font-size:2rem;margin:.8rem 0 .3rem}
+.ceremony p{color:var(--ink-soft);font-weight:500}
+
+/* recipe lab — a recipe box, rows not cards */
+.pantry{display:flex;flex-wrap:wrap;gap:8px}
+.recipe-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:22px 0 4px}
+.recipe-tools input[type="search"]{flex:1;min-width:210px;border:2px solid var(--line);border-radius:999px;padding:.62rem 1.1rem;font-size:1rem;font-weight:500;background:#fff;color:var(--ink);outline:none}
+.recipe-tools input[type="search"]:focus{border-color:var(--gold)}
+.ready-banner{display:none;margin-top:18px;background:#F3E9CF;border:2px solid var(--gold);border-radius:14px;padding:.85rem 1.15rem;font-weight:700;color:var(--ink);font-size:1.02rem}
+.ready-banner.show{display:block;animation:enter .45s ease}
+.recipe-list{margin-top:20px;border-top:1px solid var(--line)}
+.recipe-row{border-bottom:1px solid var(--line)}
+.recipe-head{display:flex;align-items:baseline;gap:14px;width:100%;background:none;border:none;text-align:left;padding:15px 6px;color:var(--ink)}
+.recipe-head:hover{background:rgba(247,227,224,.5)}
+.recipe-head .r-num{font-family:var(--serif);font-weight:700;color:var(--gold);font-size:.95rem;flex:none;width:2.2rem}
+.recipe-head .r-name{font-family:var(--serif);font-size:1.28rem;font-weight:600}
+.recipe-head .r-meta{margin-left:auto;flex:none;font-size:.85rem;font-weight:600;color:var(--ink-soft)}
+.recipe-head .r-now{display:none;flex:none;background:var(--gold);color:#FFF9EC;font-size:.74rem;font-weight:700;letter-spacing:.06em;padding:.28rem .65rem;border-radius:999px;text-transform:uppercase}
+.recipe-row.is-ready .r-now{display:inline-block}
+.recipe-row.is-ready .r-name{color:#6E5510}
+.recipe-detail{display:none;padding:4px 6px 22px 3.4rem;max-width:44rem}
+.recipe-row.open .recipe-detail{display:block;animation:enter .35s ease}
+.recipe-detail h5{font-family:var(--serif);font-size:1rem;margin:.6rem 0 .3rem;color:var(--ink)}
+.recipe-detail ul{margin:0;padding-left:1.1rem;color:var(--ink-soft);font-weight:500;line-height:1.55}
+.recipe-detail p{color:var(--ink-soft);font-weight:500;line-height:1.65}
+.made-row{margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.made-row img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:center 18%}
+.made-msg{font-family:var(--hand);font-size:1.4rem;font-weight:700;display:none}
+.made-msg.show{display:inline-block}
+
+/* music place — Midnights moved to deep plum + burgundy, no blue */
+.place-music{background:linear-gradient(180deg,var(--plum-deep),#3A1730 70%,var(--plum-burg));color:var(--cream-on-dark);max-width:none}
+.place-music .wrap{max-width:1140px}
+.place-music h2,.place-music h3,.place-music h4{color:var(--cream-on-dark)}
+.place-music .place-sub,.place-music .block-sub{color:var(--soft-on-dark)}
+.place-music .era-tag{background:var(--gold);color:#FFF6E0}
+.place-music .hand-note{background:rgba(255,243,226,.14);color:var(--cream-on-dark)}
+.song-rows{margin-top:8px}
+.song-row{display:grid;grid-template-columns:92px 1fr;gap:22px;align-items:center;padding:22px 0;border-bottom:1px solid rgba(255,243,226,.18)}
+.vinyl{width:92px;height:92px;border-radius:50%;background:repeating-radial-gradient(circle at center,#1D0E1A 0 3px,#2C1728 3px 5px);display:grid;place-items:center;flex:none}
+.vinyl::after{content:"";width:34px;height:34px;border-radius:50%;background:var(--vc,#B85C78);border:2.5px solid rgba(255,243,226,.85)}
+.song-row.playing .vinyl{animation:spin 1.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.song-row h3{font-size:1.6rem}
+.song-row .era{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--soft-on-dark);margin-top:.2rem}
+.song-row .note{color:var(--soft-on-dark);font-weight:500;margin-top:.35rem;max-width:34rem;line-height:1.55}
+.song-row .credit{font-size:.8rem;color:var(--soft-on-dark);opacity:.85;margin-top:.3rem;font-weight:600}
+.play-btn{margin-top:.8rem;background:var(--cream-on-dark);color:var(--plum-deep);border:2px solid var(--cream-on-dark);border-radius:999px;font-weight:700;padding:.6rem 1.3rem;font-size:.98rem}
+.play-btn:active{transform:scale(.96)}
+.stage-frame{display:none;margin-top:26px}
+.stage-frame.open{display:block}
+.stage-frame iframe{width:100%;height:300px;border:0;border-radius:14px;display:block}
+
+/* bookshelf */
+.shelf{background:linear-gradient(180deg,#7A5B3A,#66452C);border-radius:18px;padding:28px 24px 16px;box-shadow:0 24px 44px rgba(51,24,43,.2)}
+.shelf-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;min-height:172px}
+.shelf-board{height:13px;background:#54381F;border-radius:6px;margin-top:14px}
+.book{width:126px;height:170px;border-radius:7px 12px 12px 7px;position:relative;padding:13px 11px;color:#FFF6EC;text-align:left;display:flex;flex-direction:column;gap:.35rem;box-shadow:4px 5px 0 rgba(0,0,0,.3);font-family:var(--serif);border:none;transition:transform .18s}
+.book:hover{transform:translateY(-9px) rotate(-1.2deg)}
+.book::before{content:"";position:absolute;left:7px;top:0;bottom:0;width:3px;background:rgba(255,255,255,.4);border-radius:2px}
+.book .bk-type{font-size:.62rem;letter-spacing:.13em;font-weight:700;text-transform:uppercase;opacity:.92;padding-left:7px}
+.book .bk-title{font-size:.98rem;font-weight:700;line-height:1.18;padding-left:7px;overflow:hidden}
+.book .bk-by{margin-top:auto;font-size:.72rem;font-weight:600;opacity:.92;padding-left:7px}
+.book.just-shelved{animation:shelve .7s cubic-bezier(.34,1.56,.64,1)}
+@keyframes shelve{0%{transform:translateY(-40px) rotate(-7deg);opacity:0}100%{transform:none;opacity:1}}
+.shelf-empty{display:flex;align-items:center;gap:18px;color:#F7EDD8;font-weight:600;font-size:1.02rem;flex-wrap:wrap;line-height:1.5}
+.shelf-empty img{width:84px;height:84px;object-fit:cover;object-position:center 16%;border-radius:50%}
+
+/* kitty & plush */
+.love-list{list-style:none;margin:0;padding:0;display:grid;gap:12px;max-width:36rem}
+.love-list li{display:flex;gap:.65rem;align-items:flex-start;font-weight:500;color:var(--ink-soft);line-height:1.55}
+.love-list li b{color:var(--ink)}
+.love-list .bowmark{color:var(--cherry);font-size:1.05rem;line-height:1.3}
+.bow-stage{display:grid;grid-template-columns:300px 1fr;gap:34px;align-items:center}
+.bow-btns{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.collection{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.collect{background:var(--paper);border:1px solid var(--line);padding:12px 12px 18px;box-shadow:0 16px 30px rgba(51,24,43,.1)}
+.collect img{width:100%;height:190px;object-fit:cover;object-position:center 20%}
+.collect h4{font-size:1.3rem;margin:.7rem 0 .1rem}
+.collect .mood{font-family:var(--hand);font-size:1.4rem;font-weight:700;color:var(--cherry)}
+.collect p{color:var(--ink-soft);font-weight:500;font-size:.93rem;line-height:1.55;margin-top:.25rem}
+
+/* cousins */
+.portraits{display:flex;gap:26px;flex-wrap:wrap;margin-top:6px}
+.portrait{text-align:center}
+.portrait img{width:132px;height:132px;border-radius:50%;object-fit:cover;box-shadow:0 14px 28px rgba(51,24,43,.2)}
+.portrait b{display:block;font-family:var(--serif);font-size:1.15rem;margin-top:.55rem}
+.portrait span{font-size:.85rem;color:var(--ink-soft);font-weight:600}
+.gates{display:grid;gap:16px;max-width:560px;margin-top:8px}
+.gate{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px 24px;text-decoration:none;color:var(--ink);box-shadow:0 14px 28px rgba(51,24,43,.1);transition:transform .18s}
+.gate:hover{transform:translateY(-3px)}
+.gate h3{font-size:1.5rem}
+.gate p{color:var(--ink-soft);font-weight:500;font-size:.94rem;margin-top:.2rem;line-height:1.5}
+.gate .arrow{flex:none;font-family:var(--serif);font-size:1.6rem;color:var(--cherry)}
+
+/* reader overlay */
+.reader{position:fixed;inset:0;z-index:90;display:none;place-items:center;padding:16px;background:rgba(46,18,41,.66)}
+.reader.open{display:grid}
+.reader-card{background:var(--paper);color:var(--ink);border-radius:8px 22px 22px 8px;max-width:560px;width:100%;max-height:84vh;overflow:auto;padding:30px;box-shadow:0 30px 60px rgba(0,0,0,.4);position:relative;animation:enter .35s ease}
+.reader-card h3{font-size:1.9rem;margin:.4rem 0 .2rem}
+.reader-card .by{font-weight:700;color:var(--cherry);margin-bottom:1rem}
+.reader-card .body{font-weight:500;line-height:1.7;white-space:pre-wrap;color:var(--ink)}
+.reader-close{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:2px solid var(--ink);background:var(--blush);font-weight:700;font-size:1.05rem}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,24px);z-index:95;background:var(--ink);color:var(--cream);font-weight:700;padding:.72rem 1.35rem;border-radius:999px;opacity:0;pointer-events:none;transition:all .3s;font-size:.95rem;max-width:calc(100vw - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:28px}
+  .hero-scene{order:-1;max-width:min(400px,94vw);justify-self:center}
+  .place-head{grid-template-columns:1fr;gap:24px}
+  .place-scene{order:-1}
+  .door-grid{gap:34px}
+  .door{width:min(300px,86%)}
+  .door::after{display:none}
+  .sketch-layout,.craft-layout,.bow-stage{grid-template-columns:1fr}
+  .collection{grid-template-columns:1fr}
+  .song-row{grid-template-columns:70px 1fr}
+  .vinyl{width:70px;height:70px}
+}
+@media (max-width:560px){
+  .topbar-in{padding:8px 12px;gap:8px}
+  .home-mark{font-size:1.05rem}
+  .topnav button{font-size:.82rem;padding:7px 8px}
+  .door-grid{grid-template-columns:1fr 1fr;gap:20px 14px}
+  .recipe-detail{padding-left:6px}
+  .open-book{padding:22px 18px}
+  .hero{padding-top:24px}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001s !important;transition-duration:.001s !important}
+  html{scroll-behavior:auto}
+  .name-sheen{display:none}
+  .hero h1,.mp-row .mp-play{animation:none !important;text-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <button class="home-mark" type="button" data-goto="home" aria-label="Back to the landing — Mika's World home"><span class="bow">❀</span> Mika&rsquo;s World</button>
+    <nav class="topnav" aria-label="Places in Mika's World">
+      <button type="button" data-goto="art">Art &amp; Sketch</button>
+      <button type="button" data-goto="ideas">Craft Ideas</button>
+      <button type="button" data-goto="crafts">House Crafts</button>
+      <button type="button" data-goto="stories">Story Centre</button>
+      <button type="button" data-goto="recipes">Recipe Lab</button>
+      <button type="button" data-goto="music">Top 3 Songs</button>
+      <button type="button" data-goto="books">My Books</button>
+      <button type="button" data-goto="plush">Kitty &amp; Plush</button>
+      <button type="button" data-goto="cousins">Cousins</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ==================== LANDING — entrance only ==================== -->
+<div class="view active" id="view-home">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="kicker">Opened from her notebook</p>
+        <h1>MIKA&rsquo;S<br /><span class="world">WORLD</span><span class="name-sheen" aria-hidden="true">MIKA&rsquo;S<br /><span class="world">WORLD</span></span></h1>
+        <p class="tagline">Draw it. Craft it. Write it. Cook it — no oven needed. Sing it.</p>
+        <p class="hero-sub">Her notebook, as a place. Every door below is somewhere she actually goes: the studio, the kitchen, the stage, the shelf.</p>
+        <div class="music-panel" aria-label="Play Mika's music">
+          <h2>Play Mika&rsquo;s Music</h2>
+          <p class="mp-sub">Her Top 3, piano versions — the kind you can draw to.</p>
+          <div id="lpSongs"></div>
+          <div class="mp-frame" id="lpFrame"></div>
+          <button class="mp-stop" type="button" id="lpStop">■ Stop the music</button>
+          <a class="mp-watch" id="lpWatch" href="#" target="_blank" rel="noopener">Watch it on YouTube instead →</a>
+        </div>
+        <span class="hand-note">everything below is mine — pick a door</span>
+      </div>
+      <div class="hero-scene">
+        <img src="assets/mika-hero-solo.webp" alt="Mika standing whole in her rose garden, facing the viewer with her joyful gap-teeth grin and her head tilted gently into it, holding her notebook — black rectangular glasses, long wavy jet-black hair worn down, red polka-dot headband, red top under blue denim overalls and white sneakers, rose petals and small pink bows drifting around her and Momo the monkey plush asleep at her feet among the fallen petals" />
+        <div class="hero-bows" id="heroBows" aria-hidden="true">
+          <span class="float-bow" style="left:7%;top:16%;width:30px;--dur:11s;--delay:.2s"><svg viewBox="0 0 44 26"><path d="M22 13 C12 3 4 5 5 12 C6 19 13 21 22 13Z" fill="#E79FB6"/><path d="M22 13 C32 3 40 5 39 12 C38 19 31 21 22 13Z" fill="#E79FB6"/><path d="M19 15 L16 24 L21 21 L24 25 L25 15Z" fill="#DE8CA9"/><circle cx="22" cy="13" r="3.6" fill="#C95D82"/></svg></span>
+          <span class="float-bow" style="left:85%;top:10%;width:23px;--dur:9s;--delay:1.4s"><svg viewBox="0 0 44 26"><path d="M22 13 C12 3 4 5 5 12 C6 19 13 21 22 13Z" fill="#E79FB6"/><path d="M22 13 C32 3 40 5 39 12 C38 19 31 21 22 13Z" fill="#E79FB6"/><path d="M19 15 L16 24 L21 21 L24 25 L25 15Z" fill="#DE8CA9"/><circle cx="22" cy="13" r="3.6" fill="#C95D82"/></svg></span>
+          <span class="float-bow" style="left:78%;top:36%;width:34px;--dur:12s;--delay:2.6s"><svg viewBox="0 0 44 26"><path d="M22 13 C12 3 4 5 5 12 C6 19 13 21 22 13Z" fill="#E79FB6"/><path d="M22 13 C32 3 40 5 39 12 C38 19 31 21 22 13Z" fill="#E79FB6"/><path d="M19 15 L16 24 L21 21 L24 25 L25 15Z" fill="#DE8CA9"/><circle cx="22" cy="13" r="3.6" fill="#C95D82"/></svg></span>
+        </div>
+        <div class="hero-petals" id="heroPetals" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="doors">
+    <div class="wrap">
+      <div class="doors-head">
+        <p class="kicker">The doors</p>
+        <h2>Nine places. All hers.</h2>
+        <p>Each door opens one place, and each place is one thing done properly. Start anywhere — the way back is always at the top.</p>
+      </div>
+      <div class="door-grid" id="doorGrid"></div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <div class="closing-scene">
+        <img src="assets/closing-scene.webp" alt="Mika in her rose garden at golden light, facing the camera with her joyful grin, head tilted into it, red polka-dot headband and denim overalls, pink bows and rose petals drifting around her" />
+      </div>
+      <div class="closing-text">
+        <h2>That&rsquo;s Mika&rsquo;s World — for now.</h2>
+        <p>Built from her notebook list. The shelf is only getting bigger, the recipe box only fuller, and the next book is already arguing with her about its ending.</p>
+        <span class="hand-note">come back soon — m.</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== ART & SKETCH ==================== -->
+<section class="view place" id="view-art">
+  <div class="wrap">
+    <div class="place-head">
+      <div>
+        <span class="era-tag" style="background:#E4D9F0;color:#4A3566">Speak Now purple · the studio</span>
+        <h2>The Art &amp; Sketch Studio</h2>
+        <p class="place-sub">Lessons that draw themselves in front of you, step by step — then the board is yours.</p>
+        <div class="spot-row">
+          <img src="assets/spot-mika-face.webp" alt="Mika" />
+          <span class="hand-note">the kitty portrait took three tries. worth it.</span>
+        </div>
+      </div>
+      <div class="place-scene"><img src="assets/scene-art.webp" alt="Mika in her art studio, painting a big Hello Kitty portrait on an easel, joyful gap-teeth grin, red polka-dot headband, red top under blue denim overalls" /></div>
+    </div>
+
+    <div class="body-block">
+      <h3>Watch a drawing draw itself</h3>
+      <p class="block-sub">Pick what to draw, press the button, and follow the pencil. Each step appears on its own.</p>
+      <div class="lesson-tabs" id="lessonTabs" role="tablist" aria-label="Choose a drawing to learn"></div>
+      <div class="sketch-layout">
+        <div class="sketch-stage"><svg id="sketchSvg" viewBox="0 0 200 200" role="img" aria-label="The drawing, appearing step by step"></svg></div>
+        <div class="sketch-side">
+          <span class="step-kicker" id="sketchKicker">Lesson</span>
+          <h4 id="sketchStepTitle">Pick a drawing above</h4>
+          <p id="sketchStepText">Press &ldquo;Draw the next step&rdquo; and watch it happen.</p>
+          <div class="sketch-btns">
+            <button class="btn btn-cherry" type="button" id="sketchPlay">Draw the next step →</button>
+            <button class="btn" type="button" id="sketchBack">← Redraw the last step</button>
+            <button class="btn" type="button" id="sketchDone">I drew it myself!</button>
+          </div>
+          <span class="done-msg" id="lessonDoneMsg">finished! on the good wall it goes.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-block">
+      <h3>Your drawing board</h3>
+      <p class="block-sub">Pick a colour, pick a brush, draw. Stamps plop a star or a heart wherever you tap.</p>
+      <div class="art-tools">
+        <div class="swatches" id="swatches" role="group" aria-label="Paint colours"></div>
+        <div role="group" aria-label="Brush size">
+          <button class="brush-dot" type="button" data-size="4" style="width:12px;height:12px" aria-label="Thin brush"></button>
+          <button class="brush-dot" type="button" data-size="9" style="width:19px;height:19px" aria-label="Medium brush"></button>
+          <button class="brush-dot" type="button" data-size="16" style="width:27px;height:27px" aria-label="Thick brush"></button>
+        </div>
+        <button class="btn" type="button" id="stampStar" aria-pressed="false">★ Stamp a star</button>
+        <button class="btn" type="button" id="stampHeart" aria-pressed="false">♥ Stamp a heart</button>
+        <button class="btn" type="button" id="eraserBtn" aria-pressed="false">Use the eraser</button>
+        <button class="btn" type="button" id="clearBtn">Clear the whole board</button>
+        <button class="btn btn-cherry" type="button" id="saveBtn">Save my drawing</button>
+      </div>
+      <div class="canvas-frame"><canvas id="artCanvas" width="1000" height="620" aria-label="Drawing canvas — draw with your mouse or finger"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CRAFT IDEAS ==================== -->
+<section class="view place" id="view-ideas">
+  <div class="wrap">
+    <div class="place-head">
+      <div>
+        <span class="era-tag" style="background:#F3D9DE;color:#7C2D43">Lover pastel · the idea bench</span>
+        <h2>The Craft Idea Station</h2>
+        <p class="place-sub">For the &ldquo;I&rsquo;m bored&rdquo; moment. One press, one idea — and every supply is already somewhere in the house.</p>
+        <div class="spot-row">
+          <img src="assets/spot-mika-face.webp" alt="Mika" />
+          <span class="hand-note">the glue is the boss of this table. I just work here.</span>
+        </div>
+      </div>
+      <div class="place-scene"><img src="assets/mika-craft.webp" alt="Mika at her craft table, gluing a giant pink polka-dot bow, a cardboard rocket beside her" /></div>
+    </div>
+    <div class="body-block">
+      <div class="idea-note" id="ideaCard">
+        <h3 id="ideaTitle">Your next make is one press away</h3>
+        <p id="ideaDesc">Press the button and the Idea Station raids the house (nicely) and thinks of something worth making.</p>
+        <p class="need" id="ideaNeed"></p>
+      </div>
+      <div style="margin-top:24px">
+        <button class="btn btn-cherry" type="button" id="ideaBtn" style="font-size:1.08rem;padding:.8rem 1.7rem">Show me a craft idea</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== HOUSE CRAFTS ==================== -->
+<section class="view place" id="view-crafts">
+  <div class="wrap">
+    <div class="place-head">
+      <div>
+        <span class="era-tag" style="background:#F0E2CC;color:#6E5510">The workbench · makes with steps</span>
+        <h2>House Crafts</h2>
+        <p class="place-sub">Six proper makes, every step laid out. Cardboard, socks, toilet rolls, jars, paper plates, yarn — if it needs a trip to the store, it isn&rsquo;t a house craft.</p>
+        <div class="spot-row">
+          <img src="assets/spot-mika-face.webp" alt="Mika" />
+          <span class="hand-note">mid-project is a look. commit to it.</span>
+        </div>
+      </div>
+      <div class="place-scene"><img src="assets/scene-rocket-build.webp" alt="Mika mid-build at her workbench, taping a red fin onto her half-assembled cardboard rocket, eyes on her work, cardboard offcuts, paint pots, scissors and a pegboard of tools all around her" /></div>
+    </div>
+    <div class="body-block">
+      <h3>Pick a craft — its steps open below</h3>
+      <p class="block-sub">One step at a time, in order. The dots keep your place.</p>
+      <div class="craft-tabs" id="craftTabs" role="tablist" aria-label="Choose a craft to make"></div>
+      <div class="craft-layout">
+        <div class="materials">
+          <h4>Find these around the house</h4>
+          <ul id="craftMaterials"></ul>
+        </div>
+        <div class="step-box">
+          <span class="step-kicker" id="stepKicker">Step 1</span>
+          <h4 id="stepTitle"></h4>
+          <p id="stepText"></p>
+          <div class="step-nav">
+            <button class="btn" type="button" id="stepPrev">← Previous step</button>
+            <span class="dots" id="stepDots" aria-hidden="true"></span>
+            <button class="btn btn-cherry" type="button" id="stepNext">Next step →</button>
+          </div>
+          <span class="done-msg" id="craftDoneMsg">finished — made by Mika, inspected by Mika.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== STORY CENTRE ==================== -->
+<section class="view place" id="view-stories">
+  <div class="wrap">
+    <div class="place-head">
+      <div>
+        <span class="era-tag" style="background:#E3E7DA;color:#3E4A3C">Folklore woodland · the writing desk</span>
+        <h2>The Story Centre</h2>
+        <p class="place-sub">Her publishing house. Spin a spark, write the story, publish it — the book gets bound, stamped, and shelved in the Library with her name on it.</p>
+        <div class="spot-row">
+          <img src="assets/spot-mika-face.webp" alt="Mika" />
+          <span class="hand-note">in my folklore era (writing about a cat I don&rsquo;t have)</span>
+        </div>
+      </div>
+      <div class="place-scene"><img src="assets/scene-stories.webp" alt="Mika at her writing desk, pen mid-word in a big open storybook, grinning down at her story, books, drafts and a warm lamp all around her" /></div>
+    </div>
+    <div class="body-block">
+      <div class="open-book">
+        <div class="spark-line">
+          <span>Story spark:</span>
+          <span class="slot" id="promptHero">a cupcake that came to life</span><span>in</span>
+          <span class="slot" id="promptPlace">a castle made of pancakes</span><span>with</span>
+          <span class="slot" id="promptTwist">a map that giggles</span>
+          <button class="btn" type="button" id="promptBtn">Spin a new story spark</button>
+        </div>
+        <div class="field">
+          <label for="storyTitle">Your story&rsquo;s title</label>
+          <input type="text" id="storyTitle" placeholder="e.g. The Giggling Map" maxlength="70" />
+        </div>
+        <div class="field">
+          <label for="storyBody">Now write it</label>
+          <textarea id="storyBody" placeholder="Once upon a time, in a castle made of pancakes…" maxlength="4000"></textarea>
+          <p class="word-count"><span id="wordCount">0</span> words so far — every great book started with word one.</p>
+        </div>
+        <div style="margin-top:20px">
+          <button class="btn btn-cherry" type="button" id="publishStory" style="font-size:1.05rem;padding:.75rem 1.6rem">Publish my story to the shelf</button>
+        </div>
+        <div class="ceremony" id="ceremony" role="status">
+          <span class="stamp">Mika&rsquo;s World Press · Bound &amp; Stamped</span>
+          <h3 id="ceremonyTitle"></h3>
+          <p>by Mika. It&rsquo;s a real book now — it lives in the Library.</p>
+          <div style="margin-top:16px"><button class="btn btn-cherry" type="button" id="shelveBtn">Put it on my shelf →</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RECIPE LAB ==================== -->
+<section class="view place" id="view-recipes">
+  <div class="wrap">
+    <div class="place-head">
+      <div>
+        <span class="era-tag" style="background:#F3E9CF;color:#6E5510">Fearless gold · the kitchen</span>
+        <h2>The Recipe Lab — Top 50, No-Cook</h2>
+        <p class="place-sub">Fifty real recipes. No oven, no stove — mixing, spreading, stacking, rolling, chilling. Tap the foods you actually have, and the Lab marks everything you can make right now.</p>
+        <div class="spot-row">
+          <img src="assets/spot-mika-face.webp" alt="Mika" />
+          <span class="hand-note">the taste-test is a serious position. I hold it.</span>
+        </div>
+      </div>
+      <div class="place-scene"><img src="assets/mika-kitchen.webp" alt="Mika in her kitchen, joyful gap-teeth grin, taste-testing from a wooden spoon while holding a plate of banana sushi rolls and berry parfait cups, red polka-dot headband and denim overalls" /></div>
+    </div>
+    <div class="body-block">
+      <h3>What&rsquo;s in your kitchen? Tap the foods you have</h3>
+      <p class="block-sub">Every tap updates the list below instantly. Recipes you can fully make get a gold NOW tag.</p>
+      <div class="pantry" id="pantry"></div>
+      <div class="recipe-tools">
+        <input type="search" id="recipeSearch" placeholder="Search the 50 — try &quot;banana&quot; or &quot;sushi&quot;" aria-label="Search recipes" />
+        <span id="catChips" style="display:flex;gap:8px;flex-wrap:wrap"></span>
+      </div>
+      <p class="ready-banner" id="readyBanner" role="status"></p>
+      <div class="recipe-list" id="recipeList"></div>
+      <p style="margin-top:22px;color:var(--ink-soft);font-weight:500;line-height:1.6;max-width:40rem">Kitchen rules, from Mika: wash hands first. A grown-up does any knife work and anything that needs melting. Check with a grown-up about allergies before starting — especially nuts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MUSIC ==================== -->
+<section class="view place place-music" id="view-music">
+  <div class="wrap">
+    <div class="place-head">
+      <div>
+        <span class="era-tag">Midnights, in deep plum · the stage</span>
+        <h2>Mika&rsquo;s Top 3</h2>
+        <p class="place-sub">Her three favourite songs, as piano versions — pressed play a hundred times, ranked by her, argued about by no one.</p>
+        <div class="spot-row">
+          <img src="assets/spot-mika-face.webp" alt="Mika" />
+          <span class="hand-note">enchanted is #1. it has always been #1.</span>
+        </div>
+      </div>
+      <div class="place-scene"><img src="assets/scene-stage.webp" alt="Mika mid-song at a microphone on stage, hand raised, mouth open singing, plum curtains and a piano behind her, red polka-dot headband and denim overalls" /></div>
+    </div>
+    <div class="body-block">
+      <div class="song-rows" id="songRows"></div>
+      <div class="stage-frame" id="stageFrame"></div>
+      <div style="margin-top:18px">
+        <button class="btn" type="button" id="stageStop" style="display:none">■ Stop the music</button>
+        <a class="stage-watch" id="stageWatch" href="#" target="_blank" rel="noopener">Watch it on YouTube instead →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BOOKS ==================== -->
+<section class="view place" id="view-books">
+  <div class="wrap">
+    <div class="place-head">
+      <div>
+        <span class="era-tag" style="background:#EFE9DB;color:#5C4A26">Manuscript · the library</span>
+        <h2>The Gallery of Books You Wrote</h2>
+        <p class="place-sub">Every story published in the Story Centre becomes a book here, with her name on the spine. Tap a book to read it.</p>
+        <div class="spot-row">
+          <img src="assets/spot-mika-face.webp" alt="Mika, author" />
+          <span class="hand-note">my shelf. my order. don&rsquo;t touch the order.</span>
+        </div>
+      </div>
+      <div class="place-scene"><img src="assets/thumb-book.webp" alt="Mika's hands writing in a big open storybook" /></div>
+    </div>
+    <div class="body-block">
+      <p class="block-sub" id="booksNote" role="status"></p>
+      <div class="shelf">
+        <div class="shelf-row" id="shelfRow"></div>
+        <div class="shelf-board"></div>
+      </div>
+      <div style="margin-top:24px">
+        <button class="btn btn-cherry" type="button" data-goto="stories">Write a new story in the Story Centre</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== KITTY & PLUSH ==================== -->
+<section class="view place" id="view-plush">
+  <div class="wrap">
+    <div class="place-head">
+      <div>
+        <span class="era-tag" style="background:#FBEAEA;color:#8E1B30">White + cherry · the corner</span>
+        <h2>Hello Kitty Things &amp; the Plush Shelf</h2>
+        <p class="place-sub">Kitty treated the way she&rsquo;s treated by everyone who actually loves her: as a design system. The bow is basically a logo at this point.</p>
+        <div class="spot-row">
+          <img src="assets/spot-mika-face.webp" alt="Mika" />
+          <span class="hand-note">arranged by mood, not by size. obviously.</span>
+        </div>
+      </div>
+      <div class="place-scene"><img src="assets/mika-shelf.webp" alt="Mika placing a pink bunny plush onto her wooden shelf beside a big cream bear and a white kitten plush, turning to grin at the viewer" /></div>
+    </div>
+
+    <div class="body-block">
+      <h3>Hello Kitty things Mika loves</h3>
+      <ul class="love-list">
+        <li><span class="bowmark">❀</span><span><b>The pajamas.</b> Red, kitty-covered, and her favourite painting outfit.</span></li>
+        <li><span class="bowmark">❀</span><span><b>The bow.</b> Every great outfit in this world runs on bow power — there&rsquo;s a sketch lesson in the Studio so you can draw the kitty face yourself, bow and all.</span></li>
+        <li><span class="bowmark">❀</span><span><b>The collection rule.</b> If it has a kitty on it, it belongs in Mika&rsquo;s world. That is simply the law.</span></li>
+      </ul>
+    </div>
+
+    <div class="body-block">
+      <h3>The dressing table — change the bow, watch it change</h3>
+      <p class="block-sub">Mika is right there. Tap a colour and her bow changes in the same second. That&rsquo;s the whole trick, and it&rsquo;s a good one.</p>
+      <div class="bow-stage">
+        <svg viewBox="0 0 300 210" role="img" aria-label="A big Hello Kitty bow that changes colour" style="width:100%;height:auto">
+          <ellipse cx="150" cy="118" rx="128" ry="82" fill="#FFFFFF" stroke="#33182B" stroke-width="5"/>
+          <path d="M62 62 L44 96 M66 176 L50 146 M238 62 L256 96 M234 176 L250 146" stroke="#33182B" stroke-width="5" stroke-linecap="round"/>
+          <ellipse cx="118" cy="106" rx="7" ry="11" fill="#33182B"/><ellipse cx="182" cy="106" rx="7" ry="11" fill="#33182B"/>
+          <ellipse cx="150" cy="122" rx="11" ry="7.5" fill="#D9A62E" stroke="#33182B" stroke-width="3.5"/>
+          <path id="bowLeft" d="M150 62 C118 26 74 30 82 60 C88 84 128 82 150 62Z" fill="#B02740" stroke="#33182B" stroke-width="4"/>
+          <path id="bowRight" d="M150 62 C182 26 226 30 218 60 C212 84 172 82 150 62Z" fill="#B02740" stroke="#33182B" stroke-width="4"/>
+          <circle id="bowKnot" cx="150" cy="62" r="14" fill="#8E1B30" stroke="#33182B" stroke-width="4"/>
+        </svg>
+        <div>
+          <div class="bow-btns">
+            <button class="btn" type="button" data-bow="cherry">Make the bow cherry red</button>
+            <button class="btn" type="button" data-bow="rose">Make the bow dusty rose</button>
+            <button class="btn" type="button" data-bow="lavender">Make the bow lavender</button>
+          </div>
+          <span class="done-msg" id="bowMsg">the bow is cherry red. correct choice.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="body-block">
+      <h3>The collection — curated, not piled</h3>
+      <p class="block-sub">Each one has a name, a mood, and a spot that is theirs. Like a playlist, not a checklist.</p>
+      <div class="collection">
+        <figure class="collect" style="margin:0">
+          <img src="assets/plush-bear.webp" alt="The Big Furry One — a huge cream bear with a red ribbon" />
+          <h4>The Big Furry One</h4><span class="mood">mood: senior management</span>
+          <p>Head of hugs. Occupies the top shelf and most of the bed. Not negotiable.</p>
+        </figure>
+        <figure class="collect" style="margin:0">
+          <img src="assets/plush-bunny.webp" alt="The Pink Bunny — a blush bunny with a bow" />
+          <h4>The Pink Bunny</h4><span class="mood">mood: coordinated</span>
+          <p>Outfit of the day: matching, obviously. Has never once been seen unmatching.</p>
+        </figure>
+        <figure class="collect" style="margin:0">
+          <img src="assets/momo.webp" alt="Momo — a small scruffy brown monkey plush with a star clip" />
+          <h4>Momo</h4><span class="mood">mood: unbothered</span>
+          <p>One plush among several, which is exactly the job. Cherry star clip, scruffy ears, shelf spot: bottom row, his choice.</p>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== COUSINS ==================== -->
+<section class="view place" id="view-cousins">
+  <div class="wrap">
+    <div class="place-head">
+      <div>
+        <span class="era-tag" style="background:#E6EDE4;color:#3E4A3C">The portal · three worlds, one family</span>
+        <h2>Cousins &amp; Best Friends, Forever</h2>
+        <p class="place-sub">Mika, Charli and Kensie: cousins by family, best friends by choice. All three of their worlds are connected — one tap and you hop worlds.</p>
+        <div class="spot-row">
+          <img src="assets/spot-mika-face.webp" alt="Mika" />
+          <span class="hand-note">cousin code: when one of us gets a website, we ALL get a website.</span>
+        </div>
+      </div>
+      <div>
+        <div class="portraits">
+          <div class="portrait"><img src="assets/spot-mika-face.webp" alt="Portrait of Mika" /><b>Mika</b><span>you are here</span></div>
+          <div class="portrait"><img src="assets/spot-charli.webp" alt="Portrait of Charli" /><b>Charli</b><span>a little more extraordinary</span></div>
+          <div class="portrait"><img src="assets/spot-kensie.webp" alt="Portrait of Kensie" /><b>Kensie</b><span>think. draw. discover.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="body-block">
+      <h3>Hop worlds</h3>
+      <p class="block-sub">These two buttons leave Mika&rsquo;s World and land in theirs.</p>
+      <div class="gates">
+        <a class="gate" href="https://charliworld.com" target="_blank" rel="noopener">
+          <span><h3>Visit Charli&rsquo;s World</h3><p>&ldquo;A little more extraordinary&rdquo; — Mika&rsquo;s cousin Charli, through the portal.</p></span>
+          <span class="arrow">→</span>
+        </a>
+        <a class="gate" href="https://kensiesworld.com" target="_blank" rel="noopener">
+          <span><h3>Visit Kensie&rsquo;s World</h3><p>&ldquo;Think. Draw. Discover.&rdquo; — Mika&rsquo;s cousin Kensie, through the portal.</p></span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+      <p style="margin-top:22px;color:var(--ink-soft);font-weight:500;line-height:1.6;max-width:36rem">Cousin code, article two: snacks are shared. Article three: there is no article three — they were busy eating the snacks.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Mika&rsquo;s World · built from Mika&rsquo;s own notebook list · mikmiksworld.com</p>
+</footer>
+
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-labelledby="readerTitle">
+  <div class="reader-card">
+    <button class="reader-close" id="readerClose" type="button" aria-label="Close the book">✕</button>
+    <span class="era-tag" style="background:#EFE9DB;color:#5C4A26" id="readerType">Story</span>
+    <h3 id="readerTitle"></h3>
+    <p class="by" id="readerBy"></p>
+    <div class="body" id="readerBody"></div>
+  </div>
+</div>
+
+<div class="reader" id="saveOverlay" role="dialog" aria-modal="true" aria-labelledby="saveTitle">
+  <div class="reader-card" style="text-align:center">
+    <button class="reader-close" id="saveClose" type="button" aria-label="Close">✕</button>
+    <h3 id="saveTitle">Your drawing, saved-ready</h3>
+    <p class="by">Fresh off the board — here it is.</p>
+    <img id="saveImg" alt="Your drawing from the drawing board" style="width:100%;height:auto;border:1px solid var(--line);border-radius:12px" />
+    <div style="margin-top:16px"><a class="btn btn-cherry" id="saveDownload" download="mikas-drawing.png" href="#">Download the picture</a></div>
+    <p style="margin-top:12px;color:var(--ink-soft);font-weight:500;font-size:.92rem">On a phone or tablet, you can also press and hold the picture to save it.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+var $ = function(id){ return document.getElementById(id); };
+var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- toast ---------- */
+var toastTimer = null;
+function toast(msg){
+  var t = $("toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 3000);
+}
+
+/* ---------- router: one place at a time, always landing at its top ---------- */
+var VIEWS = ["home","art","ideas","crafts","stories","recipes","music","books","plush","cousins"];
+function showView(id){
+  if(VIEWS.indexOf(id) === -1) id = "home";
+  VIEWS.forEach(function(v){ $("view-" + v).classList.toggle("active", v === id); });
+  document.querySelectorAll("[data-goto]").forEach(function(b){
+    if(b.classList.contains("home-mark")) return;
+    b.setAttribute("aria-current", b.getAttribute("data-goto") === id ? "true" : "false");
+  });
+  window.scrollTo(0,0);
+  try{ history.replaceState(null,"", id === "home" ? (window.location.pathname + window.location.search) : "#" + id); }catch(e){}
+  if(id !== "music") stopAllMusic();
+}
+document.addEventListener("click", function(e){
+  var g = e.target.closest("[data-goto]");
+  if(g){ e.preventDefault(); showView(g.getAttribute("data-goto")); }
+});
+
+/* ---------- songs (piano versions only) ---------- */
+var SONGS = [
+  { title:"Enchanted", era:"Speak Now era · the purple one", color:"#8B7FA8",
+    note:"The sparkliest song ever written about meeting someone. Wonderstruck, blushing all the way home.",
+    piano:"https://www.youtube.com/embed/lrN940Xh4jQ", watch:"https://www.youtube.com/watch?v=lrN940Xh4jQ", credit:"Piano cover with strings by John Rod Dondoyano" },
+  { title:"Blank Space", era:"1989 era · the dramatic one", color:"#C4748E",
+    note:"The dramatic one. Piano makes it more dramatic, somehow.",
+    piano:"https://www.youtube.com/embed/yROSm3OOn6Q", watch:"https://www.youtube.com/watch?v=yROSm3OOn6Q", credit:"Piano instrumental by Zach Evans" },
+  { title:"Love Story", era:"Fearless era · pure gold", color:"#BE9448",
+    note:"The fairytale. Balconies, ballgowns and the happiest ending. Sing-along level: maximum.",
+    piano:"https://www.youtube.com/embed/0kEMvChfIFA", watch:"https://www.youtube.com/watch?v=0kEMvChfIFA", credit:"Piano cover by Karim Yacoub" }
+];
+function makePlayer(song, height){
+  var ifr = document.createElement("iframe");
+  ifr.title = song.title + " — piano version player";
+  ifr.setAttribute("allow","autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture");
+  ifr.setAttribute("allowfullscreen","");
+  /* YouTube rejects embeds that arrive without a referrer (player error in
+     app webviews) — send a strict-origin referrer explicitly, and autoplay
+     so the tap that opened the player is the tap that starts the song. */
+  ifr.referrerPolicy = "strict-origin-when-cross-origin";
+  ifr.src = song.piano + "?rel=0&autoplay=1&playsinline=1";
+  ifr.style.height = height;
+  return ifr;
+}
+function stopAllMusic(){
+  var lf = $("lpFrame"); if(lf){ lf.innerHTML=""; lf.classList.remove("open"); }
+  $("lpStop").classList.remove("show");
+  $("lpWatch").classList.remove("show");
+  document.querySelectorAll(".mp-row").forEach(function(r){ r.classList.remove("playing"); });
+  var sf = $("stageFrame"); if(sf){ sf.innerHTML=""; sf.classList.remove("open"); }
+  $("stageStop").style.display = "none";
+  $("stageWatch").classList.remove("show");
+  document.querySelectorAll(".song-row").forEach(function(r){ r.classList.remove("playing"); });
+}
+/* landing music panel */
+SONGS.forEach(function(s, i){
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "mp-row";
+  b.innerHTML = '<span class="mp-play">▶</span><span><b>' + (i+1) + ". " + s.title + '</b><span>piano version · ' + s.era + "</span></span>";
+  b.setAttribute("aria-label", "Play " + s.title + " on piano");
+  b.addEventListener("click", function(){
+    var wasOpen = $("lpFrame").classList.contains("open");
+    stopAllMusic();
+    if(wasOpen && b.classList.contains("was-playing")) return;
+    document.querySelectorAll(".mp-row").forEach(function(r){ r.classList.remove("was-playing"); });
+    b.classList.add("was-playing");
+    var f = $("lpFrame"); f.appendChild(makePlayer(s, "200px")); f.classList.add("open");
+    $("lpStop").classList.add("show");
+    var w = $("lpWatch"); w.href = s.watch; w.textContent = "Player not loading? Watch " + s.title + " on YouTube →"; w.classList.add("show");
+  });
+  $("lpSongs").appendChild(b);
+});
+$("lpStop").addEventListener("click", function(){
+  document.querySelectorAll(".mp-row").forEach(function(r){ r.classList.remove("was-playing"); });
+  stopAllMusic();
+});
+/* music place rows */
+SONGS.forEach(function(s, i){
+  var row = document.createElement("div");
+  row.className = "song-row";
+  row.innerHTML = '<div class="vinyl" style="--vc:' + s.color + '"></div>' +
+    '<div><h3>' + (i+1) + ". " + s.title + ' <span style="font-size:.95rem;color:var(--soft-on-dark)">' + (i===0 ? "· Mika&rsquo;s #1" : "") + '</span></h3>' +
+    '<p class="era">' + s.era + ' · piano version</p><p class="note"></p><p class="credit">' + s.credit + '</p>' +
+    '<button type="button" class="play-btn">▶ Play ' + s.title + ' on piano</button></div>';
+  row.querySelector(".note").textContent = s.note;
+  row.querySelector(".play-btn").addEventListener("click", function(){
+    stopAllMusic();
+    row.classList.add("playing");
+    var f = $("stageFrame"); f.appendChild(makePlayer(s, "300px")); f.classList.add("open");
+    $("stageStop").style.display = "";
+    var w = $("stageWatch"); w.href = s.watch; w.textContent = "Player not loading? Watch " + s.title + " on YouTube →"; w.classList.add("show");
+    f.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block:"nearest" });
+  });
+  $("songRows").appendChild(row);
+});
+$("stageStop").addEventListener("click", stopAllMusic);
+
+/* ---------- doors (painted vignettes from the places' own scenes) ---------- */
+var DOORS = [
+  ["art","assets/scene-art.webp","Open the Art & Sketch Studio","Lessons that draw themselves, then your own board","Mika painting a big Hello Kitty portrait in her studio"],
+  ["ideas","assets/mika-craft.webp","Open the Craft Idea Station","One press, one idea, all from around the house","Mika gluing a giant pink bow at her craft table"],
+  ["crafts","assets/door-rocket-build.webp","Open House Crafts","Six makes, every step laid out","Mika taping a red fin onto her half-built cardboard rocket at the workbench"],
+  ["stories","assets/scene-stories.webp","Open the Story Centre","Spin a spark, write it, publish it","Mika writing in a big open storybook at her desk, pen mid-word"],
+  ["recipes","assets/mika-kitchen.webp","Open the Recipe Lab","The Top 50 no-cook recipes","Chef Mika taste-testing in her kitchen"],
+  ["music","assets/scene-stage.webp","Open Top 3 Songs","Her piano versions, on stage","Mika singing into a microphone on stage, hand raised mid-song"],
+  ["books","assets/thumb-book.webp","Open My Books","The gallery of books she wrote","Mika's hands writing in a big open storybook"],
+  ["plush","assets/mika-shelf.webp","Open Kitty & Plush","The bow, the shelf, the collection","Mika placing a pink bunny plush onto her shelf"],
+  ["cousins","assets/spot-charli.webp","Open the Cousin Portal","Hop to Charli & Kensie&rsquo;s worlds","Portrait of Charli, Mika's cousin"]
+];
+DOORS.forEach(function(d){
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "door"; b.setAttribute("data-goto", d[0]);
+  b.innerHTML = '<span class="door-img"><img src="' + d[1] + '" alt="' + d[4] + '" loading="lazy" /></span><b>' + d[2].replace(/^Open /,"") + '</b><span>' + d[3] + '</span><span class="door-go">' + d[2] + ' →</span>';
+  $("doorGrid").appendChild(b);
+});
+
+function P(d, fill){ return { tag:"path", d:d, fill:!!fill }; }
+        function C(cx, cy, r, fill){ return { tag:"circle", cx:cx, cy:cy, r:r, fill:!!fill }; }
+        function E(cx, cy, rx, ry, fill){ return { tag:"ellipse", cx:cx, cy:cy, rx:rx, ry:ry, fill:!!fill }; }
+
+var LESSONS = [
+          {
+            name: "Hello Kitty Face", short: "the Hello Kitty face",
+            tip: "Kitty's bow sits over her LEFT ear... wait, your left or her left? Artists argue about this. Pick a side and commit.",
+            steps: [
+              { label: "The head — one big soft oval", els: [ P("M100 26 C146 26 174 60 174 104 C174 148 140 174 100 174 C60 174 26 148 26 104 C26 60 54 26 100 26 Z") ] },
+              { label: "The famous bow: two loops + a knot", els: [ P("M146 44 C126 20 104 28 112 48 C117 62 138 56 146 44 Z"), P("M146 44 C166 20 188 28 180 48 C175 62 154 56 146 44 Z"), C(146, 44, 9) ] },
+              { label: "Two oval eyes", els: [ E(72, 104, 5, 8, true), E(128, 104, 5, 8, true) ] },
+              { label: "A tiny oval nose, right in the middle", els: [ E(100, 118, 8, 5.5) ] },
+              { label: "Three whiskers on each side", els: [ P("M24 100 L56 108"), P("M28 124 L58 120"), P("M176 100 L144 108"), P("M172 124 L142 120") ] }
+            ]
+          },
+          {
+            name: "A Bunny", short: "a bunny",
+            tip: "Bunny ears are long ovals with a smaller oval tucked inside — draw the outside first, then the inside.",
+            steps: [
+              { label: "Two long ears", els: [ E(76, 52, 13, 34), E(124, 52, 13, 34) ] },
+              { label: "One round head under the ears", els: [ C(100, 128, 52) ] },
+              { label: "The inside of the ears", els: [ E(76, 54, 6, 24), E(124, 54, 6, 24) ] },
+              { label: "Two eyes and a tiny triangle nose", els: [ E(82, 122, 4.5, 7, true), E(118, 122, 4.5, 7, true), P("M94 138 L106 138 L100 146 Z") ] },
+              { label: "A little mouth and long whiskers", els: [ P("M100 146 Q100 154 90 152 M100 146 Q100 154 110 152"), P("M30 132 L62 138"), P("M34 150 L64 146"), P("M170 132 L138 138"), P("M166 150 L136 146") ] }
+            ]
+          },
+          {
+            name: "A Cat", short: "a cat",
+            tip: "Cat ears are just triangles with soft corners. Round the tips and the cat goes from scary to cuddly instantly.",
+            steps: [
+              { label: "Two triangle ears", els: [ P("M52 78 L60 30 L96 56"), P("M148 78 L140 30 L104 56") ] },
+              { label: "A round head under the ears", els: [ C(100, 112, 58) ] },
+              { label: "Two almond eyes", els: [ P("M62 108 Q76 94 90 108 Q76 118 62 108 Z"), P("M110 108 Q124 94 138 108 Q124 118 110 108 Z"), E(76, 106, 3.5, 6, true), E(124, 106, 3.5, 6, true) ] },
+              { label: "A tiny triangle nose + mouth", els: [ P("M93 128 L107 128 L100 138 Z"), P("M100 138 Q100 148 88 146 M100 138 Q100 148 112 146") ] },
+              { label: "Whiskers — three per side, nice and long", els: [ P("M20 118 L58 124"), P("M24 140 L58 134"), P("M180 118 L142 124"), P("M176 140 L142 134") ] }
+            ]
+          },
+          {
+            name: "A Cupcake", short: "a cupcake",
+            tip: "Draw the wrapper with slightly slanted sides — straight sides make it look like a bucket. Frosting is just three friendly bumps.",
+            steps: [
+              { label: "The wrapper — a trapezoid with slanted sides", els: [ P("M62 118 L138 118 L128 172 L72 172 Z") ] },
+              { label: "Wrapper stripes", els: [ P("M82 118 L86 172"), P("M100 118 L100 172"), P("M118 118 L114 172") ] },
+              { label: "The frosting — three big swirly bumps", els: [ P("M56 118 C48 92 74 84 84 94 C88 74 112 74 116 94 C126 84 152 92 144 118") ] },
+              { label: "A cherry on top", els: [ C(100, 62, 11), P("M100 52 Q108 38 122 40") ] },
+              { label: "Sprinkles! Short dashes everywhere", els: [ P("M74 104 L82 100"), P("M98 108 L106 104"), P("M122 102 L130 98"), P("M86 90 L94 86"), P("M112 88 L120 84") ] }
+            ]
+          }
+        ];
+var IDEAS = [
+          { t: "Sock Puppet Theatre", d: "Turn lonely socks into a puppet cast, then put on a show where every character has a squeaky voice and a dramatic secret.", n: "From the house: odd socks, buttons, yarn scraps, glue, a cardboard box for the stage" },
+          { t: "Cardboard Castle", d: "Build a castle fit for a plush royal. Towers, a drawbridge, and at least one secret snack chamber.", n: "From the house: cardboard boxes, tape, crayons, scissors, royal imagination" },
+          { t: "Toilet-Roll Binoculars", d: "Two rolls, one string, endless bird-and-neighbour's-cat watching. Decorate them like a explorer from a nature show.", n: "From the house: 2 toilet rolls, string, glue, stickers or paint" },
+          { t: "Jar Lantern of Fake Fireflies", d: "Decorate a jar with tissue paper and star stickers so it looks like you caught a whole sky in there.", n: "From the house: a clean jar, tissue paper, glue, stickers" },
+          { t: "Mini Book Factory", d: "Fold paper into tiny books, then fill them with the world's shortest stories. Bonus: a library card for each one.", n: "From the house: paper, a stapler, pens, very small handwriting" },
+          { t: "Paper Plate Mask Parade", d: "Make an animal mask from a paper plate, then hold a parade. Marching and roaring are both mandatory.", n: "From the house: paper plates, string, crayons, a parade route (the hallway)" },
+          { t: "Cupcake Liner Flowers", d: "Flatten, stack and fluff cupcake liners into a bouquet that never wilts.", n: "From the house: cupcake liners, straws or sticks, tape, a cup for a vase" },
+          { t: "Treasure Map + Buried Treasure", d: "Draw an aged treasure map (crumple the paper to make it look ancient!), hide a 'treasure', and send a cousin hunting.", n: "From the house: paper, crayons, a small box, treasure (snacks count)" },
+          { t: "Button Family Portraits", d: "Glue buttons into little people — big button bodies, tiny button heads — and frame your button family on cardboard.", n: "From the house: buttons, cardboard, glue, a pen for faces" },
+          { t: "Tissue-Box Guitar", d: "Stretch rubber bands over an empty tissue box, strum gently, and start a band. Every band needs a name and a poster.", n: "From the house: empty tissue box, rubber bands, a paper-towel roll neck" }
+        ];
+var CRAFTS = [
+          {
+            name: "Pom-Pom Bunny Buddy",
+            materials: ["Yarn (any colour — pink is classic)", "A fork or two cardboard rings", "Felt or paper scraps for the face and ears", "Googly eyes or buttons", "Glue", "Scissors"],
+            steps: [
+              { t: "Wind the pom-pom", d: "Wrap yarn around a fork (or two cardboard rings) about 100 times. Fluffier bunny = more wrapping. This is not the moment to be stingy." },
+              { t: "Tie it tight", d: "Slide a short piece of yarn around the middle and tie the tightest knot in history. Slip it off, then trim and shake your pom-pom into a round bunny body. Grown-ups help with tricky cutting." },
+              { t: "Make the face", d: "Cut two long paper or felt ears and a small oval for the muzzle. Stick the ears on top and the muzzle low on the face — that's the bunny secret." },
+              { t: "Eyes on", d: "Glue on the googly eyes. One slightly wonky eye is not a mistake; it is personality." },
+              { t: "Style + name her", d: "Tie on a ribbon or a paper scarf. Give your bunny a name, a favourite snack, and a spot on the shelf with the rest of the collection. Official cuteness: certified." }
+            ]
+          },
+          {
+            name: "Paper-Plate Kitty Mask",
+            materials: ["A paper plate", "Pink and black markers or crayons", "String or a strip of paper", "Scissors", "Glue", "Cotton balls (optional, for fluff)"],
+            steps: [
+              { t: "Cut the mask", d: "Cut two eye holes in the paper plate (grown-up helps with the first poke). Trim the top edge into two pointy ear shapes." },
+              { t: "Draw the face", d: "Two oval eyes around your eye holes, a tiny yellow-pink oval nose in the middle, and three whiskers each side. Sound familiar? You sketched this!" },
+              { t: "The bow — obviously", d: "Draw or cut out a big bow on one ear and colour it cherry, dusty rose or lavender — the dressing-table colours." },
+              { t: "Add the strap", d: "Punch a hole on each side, tie on string or a paper strip so the mask fits your head snugly." },
+              { t: "The grand entrance", d: "Put the mask on and enter a room like you own it. Kitty confidence: activated." }
+            ]
+          },
+          {
+            name: "Toilet-Roll Binoculars",
+            materials: ["2 empty toilet rolls", "Glue or tape", "String", "Stickers, paint or markers", "A hole punch (or careful scissors)"],
+            steps: [
+              { t: "Glue the pair", d: "Glue or tape the two rolls side by side so they look like binoculars. Let the glue set — explorers are patient." },
+              { t: "Decorate wildly", d: "Colour or sticker them up. Camouflage for garden missions, glitter for fancy missions. Both is fine." },
+              { t: "Add the strap", d: "Punch a hole on each outside edge and thread the string through, knotting it so the binoculars can hang around your neck." },
+              { t: "Calibrate", d: "Hold them up and focus on something far away. Everything looks closer. Science has no explanation for how cool you look." },
+              { t: "First mission", d: "Garden safari: log three birds, one suspicious squirrel, and one unimpressed cat watching you from the fence." }
+            ]
+          },
+          {
+            name: "Giant Bow Headband",
+            materials: ["Wide ribbon or a strip of fabric from around the house", "A plain headband", "Strong craft glue", "Scissors", "Stickers or gems to decorate"],
+            steps: [
+              { t: "Cut your ribbon", d: "Cut one long piece (about 30 cm) for the bow loops and a short piece (8 cm) for the middle wrap." },
+              { t: "Loop it", d: "Fold the long piece into two loops with the ends meeting in the middle. Pinch the centre hard — the pinch is where the magic gathers." },
+              { t: "Wrap the middle", d: "Wrap the short piece around the pinched centre and glue it at the back. Congratulations, that is officially a bow." },
+              { t: "Attach to the band", d: "Glue the bow onto the headband, slightly to one side. All the best bows sit at a jaunty angle. Science." },
+              { t: "Decorate + wear", d: "Add gems or stickers, let it dry fully, then wear it everywhere for at least one entire day. Those are the rules." }
+            ]
+          },
+          {
+            name: "Cousin Bracelets",
+            materials: ["String, yarn or embroidery thread in 3 colours per bracelet", "Scissors", "Tape or a clipboard", "Beads with big holes (optional)", "A cousin to give it to"],
+            steps: [
+              { t: "Pick their colours", d: "Choose three colours that remind you of Charli for one bracelet, and three that remind you of Kensie for the other. Colour choices are serious business — take your time." },
+              { t: "Cut + knot", d: "Cut three strands about as long as your arm. Knot them together at the top, leaving a little tail, and tape the knot to a table or clip it to a clipboard." },
+              { t: "Braid or twist", d: "Braid the three strands all the way down, keeping it snug. Add a bead every so often if you're feeling fancy." },
+              { t: "Tie it off", d: "Knot the end, trim the extra thread, and check the bracelet fits a cousin-sized wrist." },
+              { t: "The delivery ceremony", d: "Present the bracelets with a small speech. Matching cousin bracelets are a legally binding friendship document in at least nine imaginary countries." }
+            ]
+          },
+          {
+            name: "Cardboard Rocket Ship",
+            materials: ["One big cardboard box", "Paper plates (portholes + control dials)", "Aluminium foil from the kitchen", "Markers or paint", "Tape and glue", "A brave pilot (plush counts)"],
+            steps: [
+              { t: "Claim your box", d: "Find the biggest box in the house. Cut a door flap on one side (grown-up does this cut). This is now a rocket. It was always a rocket." },
+              { t: "Windows to space", d: "Glue paper plates on the sides as portholes. Draw the view: stars, a planet, one very surprised alien." },
+              { t: "The control panel", d: "Inside, draw dials and buttons with markers — or glue on bottle caps and foil squares. Label one big red button DO NOT PRESS (you will press it)." },
+              { t: "Foil everything", d: "Wrap edges and corners in aluminium foil for that official spaceship shine." },
+              { t: "Countdown", d: "Load the pilot (any plush with a brave face), close the flap, count down from ten, and blast off to the Snack Nebula." }
+            ]
+          }
+        ];
+var PANTRY = {
+          bread:"Bread", tortilla:"Tortillas", crackers:"Crackers", graham:"Graham crackers", cereal:"Cereal", oats:"Oats",
+          pb:"Peanut butter", jam:"Jam", honey:"Honey", creamcheese:"Cream cheese", cheese:"Cheese", yogurt:"Yogurt", milk:"Milk",
+          banana:"Bananas", apple:"Apples", berries:"Berries", grapes:"Grapes", melon:"Watermelon", cucumber:"Cucumber",
+          carrot:"Carrots", celery:"Celery", lettuce:"Lettuce", tomato:"Tomatoes", avocado:"Avocado", hummus:"Hummus",
+          pretzels:"Pretzels", raisins:"Raisins", marshmallows:"Marshmallows", choc:"Chocolate chips", lemon:"Lemons"
+        };
+var RECIPES = [
+          ["PB Banana Sushi Rolls","Snack","10 min",["tortilla","pb","banana"],"Spread peanut butter over the whole tortilla. Lay a peeled banana along one edge and roll up tight, sushi-style. Slice into 8 rounds (a grown-up does the knife part) and stand them up on a plate."],
+          ["Ants on a Log","Snack","5 min",["celery","pb","raisins"],"Fill each celery stick with peanut butter. Line raisins up along the top — those are your ants. March them onto a plate in single file."],
+          ["Yogurt Parfait Cups","Sweet","5 min",["yogurt","berries","cereal"],"Layer yogurt, berries and cereal in a clear cup. Repeat until the cup is full. Crown it with the single biggest berry you can find."],
+          ["No-Bake Oat Energy Bites","Snack","15 min",["oats","pb","honey","choc"],"Stir oats, peanut butter, honey and chocolate chips in a bowl. Roll spoonfuls into balls. Chill in the fridge for 20 minutes until firm."],
+          ["Apple Nachos","Sweet","10 min",["apple","pb","choc","marshmallows"],"Fan apple slices out on a plate like nachos. Drizzle with peanut butter (a grown-up can warm it briefly so it pours). Scatter chocolate chips and mini marshmallows over the top."],
+          ["Banana Nice Cream","Freezer","5 min + freeze",["banana","milk","choc"],"Blend frozen banana chunks with a small splash of milk until it swirls like soft-serve ice cream. Stir in chocolate chips and eat immediately."],
+          ["Strawberry Cheesecake Bites","Sweet","10 min",["graham","creamcheese","berries"],"Spread cream cheese on graham cracker squares. Top each one with a berry slice. Stack two together for a fancy mini cake."],
+          ["Rainbow Fruit Skewers","Snack","10 min",["berries","banana","grapes","melon"],"Thread fruit onto skewers in rainbow order: berry, banana chunk, melon cube, grape. Repeat down the skewer and line them all up."],
+          ["Cucumber Sandwich Stacks","Lunch","10 min",["cucumber","creamcheese","bread"],"Spread cream cheese on bread, layer on cucumber rounds, and top with a second slice. Cut into triangles (grown-up knife job)."],
+          ["Cracker Pizzas","Lunch","5 min",["crackers","cheese","tomato"],"Put a thin tomato slice on each cracker and top with a piece of cheese. Cold pizza bites — maximum crunch."],
+          ["Hummus Veggie Cups","Snack","5 min",["hummus","carrot","cucumber","celery"],"Spoon hummus into a small cup. Stand carrot, cucumber and celery sticks in it like a veggie bouquet. Dip and crunch."],
+          ["Peanut Butter Apple Sandwiches","Snack","5 min",["apple","pb","cereal"],"Spread peanut butter between two apple rings to make a mini sandwich. Roll the sticky edge in crushed cereal for crunch."],
+          ["Pinwheel Roll-Ups","Lunch","10 min",["tortilla","creamcheese","cheese","lettuce"],"Spread cream cheese on a tortilla, add cheese and lettuce. Roll it up tight, then slice into pinwheels (grown-up slices)."],
+          ["Choc-Dipped Banana Pops","Freezer","15 min + freeze",["banana","choc"],"Push a popsicle stick into each banana half. Dip in melted chocolate (a grown-up melts it). Lay on a lined tray and freeze for 1 hour."],
+          ["Berry Yogurt Bark","Freezer","10 min + freeze",["yogurt","berries","honey"],"Spread yogurt thickly on a lined tray. Swirl in honey, dot with berries, and freeze for 2 hours. Snap into frosty shards."],
+          ["Treasure Trail Mix","Snack","5 min",["cereal","pretzels","raisins","choc","marshmallows"],"Dump everything into a big bowl and mix with clean hands. House rule: one handful per explorer, no picking out only the chocolate chips (the Lab is watching)."],
+          ["Watermelon Pizza","Snack","10 min",["melon","yogurt","berries","grapes"],"Spread yogurt over a big round watermelon slice. Decorate with berries and grape halves like pizza toppings, then cut into wedges (grown-up cuts)."],
+          ["Avocado Toast Faces","Lunch","5 min",["bread","avocado","tomato","cheese"],"Mash avocado onto toast with a fork. Make a face: tomato-slice eyes and a cheese-strip smile. Eat before it winks at you."],
+          ["Caprese Skewers","Snack","5 min",["tomato","cheese","lettuce"],"Thread a tomato, a folded lettuce leaf and a cheese cube onto a skewer. Repeat. Serve like a tiny fancy restaurant."],
+          ["Berry Blast Smoothie","Drink","5 min",["berries","banana","yogurt","milk"],"Blend berries, half a banana, yogurt and milk until smooth and pink. Pour into your fanciest glass. Straw encouraged."],
+          ["Overnight Oats Jars","Sweet","5 min + overnight",["oats","milk","yogurt","honey","berries"],"Stir oats, milk, yogurt and honey in a jar. Top with berries, lid on, fridge overnight. Breakfast makes itself while you sleep."],
+          ["Graham Cracker Cottages","Sweet","15 min",["graham","creamcheese","berries"],"Use cream cheese as edible glue to build a tiny cottage out of graham crackers. Berry slices make perfect roof tiles."],
+          ["Banana Split Bites","Sweet","10 min",["banana","yogurt","choc","berries"],"Dip banana chunks in yogurt, roll in chocolate chips, and top each with a small berry. Line them up like a banana-split parade."],
+          ["Veggie Tortilla Roll-Ups","Lunch","10 min",["tortilla","hummus","carrot","cucumber","lettuce"],"Spread hummus on a tortilla and add grated carrot, cucumber sticks and lettuce. Roll, slice, and admire the rainbow inside."],
+          ["PB&J Sushi","Snack","5 min",["bread","pb","jam"],"Flatten a bread slice with a rolling pin. Spread on peanut butter and jam, roll it up, and slice into sushi rounds (grown-up slices)."],
+          ["Cucumber Boats","Snack","10 min",["cucumber","hummus","cheese"],"Scoop a little trench into cucumber halves with a spoon. Fill with hummus and add a cheese-slice sail on a toothpick. Set sail."],
+          ["Yogurt-Dipped Strawberries","Freezer","10 min + freeze",["berries","yogurt"],"Dip berries in yogurt and set them on a lined tray. Freeze for 1 hour for a frosty, creamy bite."],
+          ["Cereal Treat Bars","Sweet","15 min",["cereal","marshmallows","pb"],"A grown-up melts the marshmallows with peanut butter. Stir in cereal, press the mix into a pan, cool completely, then slice into bars."],
+          ["Choco-PB Oat Cups","Sweet","10 min + chill",["oats","pb","honey","choc"],"Mix oats, peanut butter and honey. Press into muffin cups, sprinkle chocolate chips on top, and chill for 30 minutes."],
+          ["Apple Donuts","Sweet","10 min",["apple","creamcheese","choc","berries"],"Thick apple rings are your donuts. Frost them with cream cheese and decorate with chocolate chips and berry bits. Sprinkles' day off."],
+          ["Cold Tortilla Pizzas","Lunch","5 min",["tortilla","tomato","cheese","lettuce"],"Spread finely chopped tomato on a tortilla, sprinkle with cheese and shredded lettuce. Roll it up and eat it like a pizza burrito."],
+          ["Sunshine Fruit Salad","Snack","10 min",["apple","grapes","berries","lemon","honey"],"Chop the fruit into a bowl. Squeeze lemon juice over it, drizzle with honey, and toss gently. Sunshine, served cold."],
+          ["Banana Oat Mash Cookies","Sweet","10 min + chill",["banana","oats","pb","choc"],"Mash banana with oats and peanut butter. Spoon blobs onto a plate, press chocolate chips into the tops, and chill until set."],
+          ["Strawberry Milk Pops","Freezer","5 min + freeze",["milk","berries","honey"],"Blend milk, berries and honey. Pour into popsicle moulds and freeze for at least 4 hours. Pink milk magic."],
+          ["Grape Caterpillars","Snack","5 min",["grapes","cheese","choc"],"Skewer grapes in a wiggly line for the body. Add a cheese-cube head, and dot on honey-glued chocolate-chip eyes."],
+          ["Pretzel Sandwich Bites","Snack","5 min",["pretzels","creamcheese","jam"],"Spread cream cheese and a tiny dab of jam on a pretzel. Cap it with a second pretzel. The world's smallest sandwiches."],
+          ["Sunshine Carrot Salad","Snack","10 min",["carrot","raisins","yogurt","honey"],"Stir grated carrot, raisins, yogurt and honey together. Sweet, crunchy and extremely orange. Sunglasses optional."],
+          ["Lettuce Cup Tacos","Lunch","10 min",["lettuce","hummus","carrot","cucumber","tomato"],"Fill big lettuce leaves with hummus and chopped veggies. Fold like a taco and eat immediately — these are crunchy and proud."],
+          ["Frozen Banana Yogurt Bites","Freezer","10 min + freeze",["banana","yogurt","berries"],"Dip banana slices in yogurt and top each with a tiny berry. Freeze on a tray for 1 hour."],
+          ["S'mores Snack Mix","Sweet","5 min",["graham","marshmallows","choc"],"Break graham crackers into bite-size pieces. Toss with marshmallows and chocolate chips. Campfire flavour, zero campfire."],
+          ["Watermelon Slushie","Drink","5 min",["melon","lemon","honey"],"Blend watermelon chunks, a squeeze of lemon and a drizzle of honey with a handful of ice until slushy. Brain-freeze speed contest optional."],
+          ["Berry Lemonade","Drink","5 min",["lemon","berries","honey"],"Squash berries in a jug with the back of a spoon. Add lemon juice, honey and cold water. Stir well and pour over ice. Pink lemonade!"],
+          ["Choco Monkey Smoothie","Drink","5 min",["banana","pb","milk","choc"],"Blend banana, peanut butter, milk and chocolate chips until thick and chocolatey. The Lab's official favourite — most requested, every single time."],
+          ["Cheese Flower Crackers","Snack","5 min",["crackers","cheese","cucumber"],"Put a cucumber round in the middle of a cracker, then arrange little cheese triangles around it like petals. A garden you can eat."],
+          ["Magic Yogurt Dip","Snack","5 min",["yogurt","honey","jam","apple","pretzels"],"Swirl jam and honey through yogurt — don't fully mix; keep the pretty ribbons. Dip apple slices, berries and pretzels."],
+          ["Banana Berry Ice Pops","Freezer","5 min + freeze",["banana","berries","yogurt"],"Blend banana, berries and yogurt until smooth. Pour into popsicle moulds and freeze for 4 hours. Run under warm water to pop them out."],
+          ["Honey Lemon Fruit Cups","Snack","5 min + chill",["apple","grapes","lemon","honey"],"Toss apple chunks and grape halves with lemon juice and honey. Chill for 10 minutes while the flavours get to know each other."],
+          ["Rainbow Pinwheel Platter","Lunch","15 min",["tortilla","creamcheese","carrot","lettuce","tomato"],"Spread cream cheese on a tortilla, then stripe it with grated carrot, lettuce and chopped tomato. Roll, slice, and lay out the rainbow wheels."],
+          ["Cheesy Celery Sailboats","Snack","5 min",["celery","cheese","creamcheese"],"Fill celery sticks with cream cheese. Add a triangle cheese sail on a toothpick to each one. Serve on a blue plate — that's the sea."],
+          ["Mika's Rainbow Trail Mix","Snack","5 min",["cereal","pretzels","choc","raisins","marshmallows"],"The official snack of this entire website. Mix cereal, pretzels, chocolate chips, raisins and marshmallows in the biggest bowl you own. Sharing is encouraged; hiding the chocolate chips is not."]
+        ];
+
+/* ---------- sketch lessons ---------- */
+var lessonIdx = 0, sketchStepIdx = -1, sketchTimers = [];
+var svgNS = "http://www.w3.org/2000/svg";
+var lessonTabs = $("lessonTabs");
+LESSONS.forEach(function(l, i){
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "chip"; b.textContent = "Draw " + l.short;
+  b.setAttribute("role","tab"); b.setAttribute("aria-selected", i===0 ? "true" : "false");
+  b.addEventListener("click", function(){
+    lessonIdx = i;
+    lessonTabs.querySelectorAll(".chip").forEach(function(t,j){ t.setAttribute("aria-selected", j===i ? "true":"false"); });
+    resetSketch();
+  });
+  lessonTabs.appendChild(b);
+});
+function clearSketchTimers(){ sketchTimers.forEach(clearTimeout); sketchTimers = []; }
+function buildShape(spec){
+  var el = document.createElementNS(svgNS, spec.tag);
+  if(spec.tag === "path") el.setAttribute("d", spec.d);
+  if(spec.tag === "circle"){ el.setAttribute("cx",spec.cx); el.setAttribute("cy",spec.cy); el.setAttribute("r",spec.r); }
+  if(spec.tag === "ellipse"){ el.setAttribute("cx",spec.cx); el.setAttribute("cy",spec.cy); el.setAttribute("rx",spec.rx); el.setAttribute("ry",spec.ry); }
+  el.setAttribute("pathLength","100");
+  el.style.fill = spec.fill ? "#33182B" : "none";
+  el.style.stroke = "#33182B"; el.style.strokeWidth = "3.5";
+  el.style.strokeLinecap = "round"; el.style.strokeLinejoin = "round";
+  el.style.strokeDasharray = "100"; el.style.strokeDashoffset = "100";
+  return el;
+}
+function drawStepEls(step, instant){
+  var svg = $("sketchSvg");
+  step.els.map(buildShape).forEach(function(el, i){
+    svg.appendChild(el);
+    var t = setTimeout(function(){
+      el.style.transition = (instant || reduced) ? "none" : "stroke-dashoffset .9s ease";
+      el.style.strokeDashoffset = "0";
+    }, (instant || reduced) ? 0 : i*350);
+    sketchTimers.push(t);
+  });
+}
+function resetSketch(){
+  clearSketchTimers();
+  $("sketchSvg").innerHTML = ""; sketchStepIdx = -1;
+  var l = LESSONS[lessonIdx];
+  $("sketchKicker").textContent = "Lesson · " + l.name;
+  $("sketchStepTitle").textContent = l.name + " — ready when you are";
+  $("sketchStepText").textContent = l.steps.length + " steps. Press the cherry button and watch step one draw itself.";
+  $("lessonDoneMsg").classList.remove("show");
+  $("sketchPlay").textContent = "Draw the next step →";
+  $("sketchBack").disabled = true;
+}
+$("sketchPlay").addEventListener("click", function(){
+  var l = LESSONS[lessonIdx];
+  if(sketchStepIdx >= l.steps.length - 1) resetSketch();
+  sketchStepIdx++;
+  $("sketchBack").disabled = false;
+  var step = l.steps[sketchStepIdx];
+  drawStepEls(step, false);
+  $("sketchKicker").textContent = "Step " + (sketchStepIdx+1) + " of " + l.steps.length + " · " + l.name;
+  $("sketchStepTitle").textContent = step.label;
+  $("sketchStepText").textContent = sketchStepIdx === l.steps.length - 1
+    ? "That's the whole drawing. " + l.tip
+    : "Watch it appear… got it? Draw the next step when you're ready.";
+  $("sketchPlay").textContent = sketchStepIdx === l.steps.length - 1 ? "↺ Watch the whole drawing again" : "Draw the next step →";
+});
+$("sketchBack").addEventListener("click", function(){
+  if(sketchStepIdx < 0) return;
+  var l = LESSONS[lessonIdx];
+  var count = l.steps[sketchStepIdx].els.length;
+  var svg = $("sketchSvg");
+  for(var i=0;i<count;i++){ if(svg.lastChild) svg.removeChild(svg.lastChild); }
+  drawStepEls(l.steps[sketchStepIdx], false);
+});
+$("sketchDone").addEventListener("click", function(){
+  $("lessonDoneMsg").classList.add("show");
+  toast("Lesson finished. It goes on the good wall.");
+});
+resetSketch();
+
+/* ---------- drawing board ---------- */
+var canvas = $("artCanvas"), ctx = canvas.getContext("2d");
+ctx.fillStyle = "#ffffff"; ctx.fillRect(0,0,canvas.width,canvas.height);
+var PAINTS = ["#33182B","#B85C78","#A91E38","#C98A5A","#D9A62E","#7D9B6E","#5F7F73","#7A6BA8","#DD9DB4","#FFF3E2"];
+var drawColor = PAINTS[1], brushSize = 9, mode = "draw";
+PAINTS.forEach(function(c, i){
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "swatch"; b.style.background = c;
+  b.setAttribute("aria-pressed", i===1 ? "true":"false");
+  b.setAttribute("aria-label","Paint with colour " + c);
+  b.addEventListener("click", function(){
+    drawColor = c; if(mode === "erase") setMode("draw");
+    $("swatches").querySelectorAll(".swatch").forEach(function(s){ s.setAttribute("aria-pressed","false"); });
+    b.setAttribute("aria-pressed","true");
+  });
+  $("swatches").appendChild(b);
+});
+function setMode(m){
+  mode = m;
+  $("stampStar").setAttribute("aria-pressed", m==="star" ? "true":"false");
+  $("stampHeart").setAttribute("aria-pressed", m==="heart" ? "true":"false");
+  $("eraserBtn").setAttribute("aria-pressed", m==="erase" ? "true":"false");
+}
+$("stampStar").addEventListener("click", function(){ setMode(mode==="star" ? "draw":"star"); });
+$("stampHeart").addEventListener("click", function(){ setMode(mode==="heart" ? "draw":"heart"); });
+$("eraserBtn").addEventListener("click", function(){ setMode(mode==="erase" ? "draw":"erase"); });
+document.querySelectorAll(".brush-dot").forEach(function(d){
+  d.addEventListener("click", function(){ brushSize = parseInt(d.getAttribute("data-size"),10); });
+});
+function stamp(x,y){
+  ctx.save(); ctx.translate(x,y);
+  ctx.fillStyle = drawColor; ctx.strokeStyle = "#33182B"; ctx.lineWidth = 3;
+  ctx.beginPath();
+  if(mode === "star"){
+    for(var i=0;i<10;i++){
+      var r = i%2===0 ? 26:11, a = (Math.PI/5)*i - Math.PI/2;
+      if(i===0) ctx.moveTo(Math.cos(a)*r, Math.sin(a)*r); else ctx.lineTo(Math.cos(a)*r, Math.sin(a)*r);
+    }
+    ctx.closePath();
+  } else {
+    ctx.moveTo(0,22);
+    ctx.bezierCurveTo(-30,2,-22,-22,0,-10);
+    ctx.bezierCurveTo(22,-22,30,2,0,22);
+  }
+  ctx.fill(); ctx.stroke(); ctx.restore();
+}
+var drawing = false, lastX = 0, lastY = 0;
+function canvasPos(e){
+  var r = canvas.getBoundingClientRect();
+  return { x:(e.clientX-r.left)*(canvas.width/r.width), y:(e.clientY-r.top)*(canvas.height/r.height) };
+}
+canvas.addEventListener("pointerdown", function(e){
+  e.preventDefault();
+  var p = canvasPos(e);
+  if(mode === "star" || mode === "heart"){ stamp(p.x,p.y); return; }
+  drawing = true; lastX = p.x; lastY = p.y;
+  ctx.fillStyle = mode === "erase" ? "#ffffff" : drawColor;
+  ctx.beginPath(); ctx.arc(p.x,p.y,brushSize/2,0,Math.PI*2); ctx.fill();
+  canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener("pointermove", function(e){
+  if(!drawing) return;
+  var p = canvasPos(e);
+  ctx.strokeStyle = mode === "erase" ? "#ffffff" : drawColor;
+  ctx.lineWidth = brushSize; ctx.lineCap = "round"; ctx.lineJoin = "round";
+  ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(p.x,p.y); ctx.stroke();
+  lastX = p.x; lastY = p.y;
+});
+["pointerup","pointercancel","pointerleave"].forEach(function(ev){ canvas.addEventListener(ev, function(){ drawing = false; }); });
+$("clearBtn").addEventListener("click", function(){
+  ctx.fillStyle = "#ffffff"; ctx.fillRect(0,0,canvas.width,canvas.height);
+  toast("Fresh page. The masterpiece era begins again.");
+});
+/* Save shows the drawing first: a programmatic download click is silently
+   blocked inside sandboxed frames, so the first tap must visibly pay off.
+   The download itself is a real link the reader taps directly. */
+$("saveBtn").addEventListener("click", function(){
+  var url = canvas.toDataURL("image/png");
+  $("saveImg").src = url;
+  $("saveDownload").href = url;
+  $("saveOverlay").classList.add("open");
+});
+$("saveClose").addEventListener("click", function(){ $("saveOverlay").classList.remove("open"); });
+$("saveOverlay").addEventListener("click", function(e){ if(e.target === this) this.classList.remove("open"); });
+$("saveDownload").addEventListener("click", function(){ toast("Drawing saved to your device."); });
+
+/* ---------- craft ideas ---------- */
+var lastIdea = -1;
+$("ideaBtn").addEventListener("click", function(){
+  var i; do { i = Math.floor(Math.random()*IDEAS.length); } while(i === lastIdea);
+  lastIdea = i;
+  $("ideaTitle").textContent = IDEAS[i].t;
+  $("ideaDesc").textContent = IDEAS[i].d;
+  $("ideaNeed").textContent = IDEAS[i].n;
+});
+
+/* ---------- house crafts ---------- */
+var craftIdx = 0, stepIdx = 0;
+var craftTabs = $("craftTabs");
+CRAFTS.forEach(function(c, i){
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "chip"; b.textContent = "Make the " + c.name;
+  b.setAttribute("role","tab"); b.setAttribute("aria-selected", i===0 ? "true":"false");
+  b.addEventListener("click", function(){
+    craftIdx = i; stepIdx = 0;
+    craftTabs.querySelectorAll(".chip").forEach(function(t,j){ t.setAttribute("aria-selected", j===i ? "true":"false"); });
+    renderCraft();
+  });
+  craftTabs.appendChild(b);
+});
+function renderCraft(){
+  var c = CRAFTS[craftIdx];
+  var ul = $("craftMaterials"); ul.innerHTML = "";
+  c.materials.forEach(function(m){ var li = document.createElement("li"); li.textContent = m; ul.appendChild(li); });
+  var s = c.steps[stepIdx];
+  $("stepKicker").textContent = "Step " + (stepIdx+1) + " of " + c.steps.length + " · " + c.name;
+  $("stepTitle").textContent = s.t;
+  $("stepText").textContent = s.d;
+  var dots = $("stepDots"); dots.innerHTML = "";
+  c.steps.forEach(function(_, i){ var d = document.createElement("span"); if(i===stepIdx) d.className = "on"; dots.appendChild(d); });
+  $("stepPrev").disabled = stepIdx === 0;
+  $("stepNext").textContent = stepIdx === c.steps.length - 1 ? "Finish — I made it!" : "Next step →";
+  if(stepIdx < c.steps.length - 1) $("craftDoneMsg").classList.remove("show");
+}
+$("stepPrev").addEventListener("click", function(){ if(stepIdx>0){ stepIdx--; renderCraft(); } });
+$("stepNext").addEventListener("click", function(){
+  var c = CRAFTS[craftIdx];
+  if(stepIdx < c.steps.length - 1){ stepIdx++; renderCraft(); }
+  else { $("craftDoneMsg").classList.add("show"); toast("Craft complete: " + c.name + "."); }
+});
+renderCraft();
+
+/* ---------- story centre + bookshelf ---------- */
+var HEROES = ["a panda who runs a pancake stand","a girl with magical glasses","a cupcake that came to life","a tiny dragon with a huge sneeze","a mermaid who collects bows","a robot learning to dance","a cat detective in a bow tie","the world's kindest witch"];
+var PLACES = ["a castle made of pancakes","a library inside a whale","a floating island of pillows","a bakery on the moon","a treehouse city","a school where the floor is trampolines","a garden where flowers sing","a train that travels through dreams"];
+var TWISTS = ["a map that giggles","a door that only opens for jokes","a crown that grants snack wishes","a thunderstorm of glitter","a treasure that is actually a friend","a clock that runs backwards on Tuesdays","a seed that grows into a staircase to the stars","a mysterious box labelled DO NOT SHAKE (she shakes it)"];
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+$("promptBtn").addEventListener("click", function(){
+  $("promptHero").textContent = pick(HEROES);
+  $("promptPlace").textContent = pick(PLACES);
+  $("promptTwist").textContent = pick(TWISTS);
+});
+$("storyBody").addEventListener("input", function(){
+  var v = this.value.trim();
+  $("wordCount").textContent = v ? v.split(/\s+/).length : 0;
+});
+var books = [];
+var BOOK_COLORS = ["#B85C78","#7D9B6E","#7A6BA8","#C98A5A","#A91E38","#5F7F73","#BE9448"];
+var justShelved = false;
+function renderShelf(){
+  var row = $("shelfRow"); row.innerHTML = "";
+  if(!books.length){
+    var empty = document.createElement("div");
+    empty.className = "shelf-empty";
+    empty.innerHTML = '<img src="assets/spot-mika-face.webp" alt="Mika, waiting to shelve her first book" /><span>The shelf is ready and the author is impatient.<br />Your first published story goes right here.</span>';
+    row.appendChild(empty);
+    $("booksNote").textContent = "No books yet — the shelf is waiting for its first spine.";
+  } else {
+    books.forEach(function(b, idx){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "book" + (justShelved && idx === 0 ? " just-shelved" : "");
+      btn.style.background = BOOK_COLORS[idx % BOOK_COLORS.length];
+      btn.innerHTML = '<span class="bk-type"></span><span class="bk-title"></span><span class="bk-by">by Mika</span>';
+      btn.querySelector(".bk-type").textContent = b.type;
+      btn.querySelector(".bk-title").textContent = b.title;
+      btn.setAttribute("aria-label","Read " + b.title);
+      btn.addEventListener("click", function(){ openReader(b); });
+      row.appendChild(btn);
+    });
+    $("booksNote").textContent = books.length + (books.length === 1 ? " book" : " books") + " on the shelf, in Mika's order. Tap one to read it.";
+  }
+  justShelved = false;
+}
+function openReader(b){
+  $("readerType").textContent = b.type;
+  $("readerTitle").textContent = b.title;
+  $("readerBy").textContent = "by Mika";
+  $("readerBody").textContent = b.body;
+  $("reader").classList.add("open");
+}
+$("readerClose").addEventListener("click", function(){ $("reader").classList.remove("open"); });
+$("reader").addEventListener("click", function(e){ if(e.target === this) this.classList.remove("open"); });
+document.addEventListener("keydown", function(e){ if(e.key === "Escape"){ $("reader").classList.remove("open"); $("saveOverlay").classList.remove("open"); } });
+$("publishStory").addEventListener("click", function(){
+  var title = $("storyTitle").value.trim();
+  var body = $("storyBody").value.trim();
+  if(!title){ toast("Your story needs a title first, author."); $("storyTitle").focus(); return; }
+  if(body.length < 20){ toast("Give it a little more — at least a few sentences."); $("storyBody").focus(); return; }
+  books.unshift({ type:"Story", title:title, body: body + "\n\n— The End —" });
+  justShelved = true; renderShelf();
+  $("ceremonyTitle").textContent = "“" + title + "”";
+  $("ceremony").classList.add("show");
+  $("ceremony").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block:"nearest" });
+  $("storyTitle").value = ""; $("storyBody").value = ""; $("wordCount").textContent = "0";
+});
+$("shelveBtn").addEventListener("click", function(){
+  $("ceremony").classList.remove("show");
+  showView("books");
+  toast("On the shelf. Spine out, name showing.");
+});
+renderShelf();
+
+/* ---------- recipe lab ---------- */
+var myPantry = {}, activeCat = "All", openRecipe = -1;
+Object.keys(PANTRY).forEach(function(key){
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "chip"; b.textContent = PANTRY[key];
+  b.setAttribute("aria-pressed","false");
+  b.setAttribute("aria-label","I have " + PANTRY[key]);
+  b.addEventListener("click", function(){
+    myPantry[key] = !myPantry[key];
+    b.setAttribute("aria-pressed", myPantry[key] ? "true":"false");
+    renderRecipes();
+  });
+  $("pantry").appendChild(b);
+});
+["All","Snack","Sweet","Lunch","Drink","Freezer"].forEach(function(c){
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "chip"; b.textContent = c === "All" ? "Show all 50" : "Show " + c;
+  b.setAttribute("aria-pressed", c === "All" ? "true":"false");
+  b.addEventListener("click", function(){
+    activeCat = c;
+    $("catChips").querySelectorAll(".chip").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+    b.setAttribute("aria-pressed","true");
+    renderRecipes();
+  });
+  $("catChips").appendChild(b);
+});
+function recipeReady(r){
+  var chosen = Object.keys(myPantry).filter(function(k){ return myPantry[k]; });
+  if(!chosen.length) return false;
+  return r[3].every(function(k){ return myPantry[k]; });
+}
+function renderRecipes(){
+  var q = $("recipeSearch").value.trim().toLowerCase();
+  var list = $("recipeList"); list.innerHTML = "";
+  var readyCount = 0, shown = 0;
+  RECIPES.forEach(function(r, i){
+    var ready = recipeReady(r);
+    if(ready) readyCount++;
+    if(activeCat !== "All" && r[1] !== activeCat) return;
+    var hay = (r[0] + " " + r[3].map(function(k){ return PANTRY[k]; }).join(" ")).toLowerCase();
+    if(q && hay.indexOf(q) === -1) return;
+    shown++;
+    var row = document.createElement("div");
+    row.className = "recipe-row" + (ready ? " is-ready" : "") + (openRecipe === i ? " open" : "");
+    var head = document.createElement("button");
+    head.type = "button"; head.className = "recipe-head";
+    head.setAttribute("aria-expanded", openRecipe === i ? "true" : "false");
+    head.innerHTML = '<span class="r-num">#' + (i+1) + '</span><span class="r-name"></span>' + (ready ? '<span class="r-now">You can make this now</span>' : '') + '<span class="r-meta">' + r[1] + " · " + r[2] + (openRecipe === i ? " · tap to close" : " · tap to open the recipe") + "</span>";
+    head.querySelector(".r-name").textContent = r[0];
+    head.addEventListener("click", function(){
+      openRecipe = openRecipe === i ? -1 : i;
+      renderRecipes();
+    });
+    row.appendChild(head);
+    var det = document.createElement("div");
+    det.className = "recipe-detail";
+    det.innerHTML = "<h5>You need</h5><ul>" + r[3].map(function(k){ return "<li>" + PANTRY[k] + "</li>"; }).join("") + "</ul><h5>How to make it</h5><p></p>";
+    det.querySelector("p").textContent = r[4];
+    var made = document.createElement("div");
+    made.className = "made-row";
+    made.innerHTML = '<img src="assets/mika-kitchen.webp" alt="Chef Mika" /><button class="btn" type="button">I made this one</button><span class="made-msg">made it. tasted it. approved it. — m.</span>';
+    made.querySelector("button").addEventListener("click", function(){
+      made.querySelector(".made-msg").classList.add("show");
+      this.textContent = "Made ✓";
+    });
+    det.appendChild(made);
+    row.appendChild(det);
+    list.appendChild(row);
+  });
+  var chosenCount = Object.keys(myPantry).filter(function(k){ return myPantry[k]; }).length;
+  var banner = $("readyBanner");
+  if(chosenCount){
+    banner.classList.add("show");
+    banner.textContent = readyCount
+      ? "The Lab has spoken: with what's in your kitchen, you can make " + readyCount + (readyCount === 1 ? " recipe" : " recipes") + " right now — look for the gold NOW tags."
+      : "So close — no full recipe matches yet. Tap a few more foods you have and watch the Lab light up.";
+  } else banner.classList.remove("show");
+  if(!shown){
+    var none = document.createElement("p");
+    none.style.cssText = "font-weight:600;color:var(--ink-soft);padding:18px 6px";
+    none.textContent = "Nothing matches that search — try \"banana\", \"yogurt\", or clear the search to see all 50.";
+    list.appendChild(none);
+  }
+}
+$("recipeSearch").addEventListener("input", renderRecipes);
+renderRecipes();
+
+/* ---------- the dressing table: bow colour, changed in place, instantly ---------- */
+var BOWS = {
+  cherry:  ["#B02740","#8E1B30","the bow is cherry red. correct choice."],
+  rose:    ["#D89AAE","#B85C78","the bow is dusty rose. very lover era."],
+  lavender:["#B7A6D9","#7A6BA8","the bow is lavender. speak now would approve."]
+};
+document.querySelectorAll("[data-bow]").forEach(function(b){
+  b.addEventListener("click", function(){
+    var pair = BOWS[b.getAttribute("data-bow")];
+    $("bowLeft").setAttribute("fill", pair[0]);
+    $("bowRight").setAttribute("fill", pair[0]);
+    $("bowKnot").setAttribute("fill", pair[1]);
+    var msg = $("bowMsg");
+    msg.textContent = pair[2];
+    msg.classList.add("show");
+  });
+});
+
+/* ---------- hero bows: gentle parallax on pointer move ---------- */
+(function(){
+  var scene = document.querySelector(".hero-scene"), layer = document.getElementById("heroBows");
+  if(!scene || !layer) return;
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  scene.addEventListener("pointermove", function(e){
+    var r = scene.getBoundingClientRect();
+    var dx = ((e.clientX - r.left) / r.width - .5) * 10;
+    var dy = ((e.clientY - r.top) / r.height - .5) * 8;
+    layer.style.transform = "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px)";
+  });
+  scene.addEventListener("pointerleave", function(){ layer.style.transform = ""; });
+})();
+
+/* ---------- hero petals: slow fall, settle at her feet, fade, recycle ---------- */
+(function(){
+  var scene = document.querySelector(".hero-scene"), layer = document.getElementById("heroPetals");
+  if(!scene || !layer) return;
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var W = 0, H = 0, running = true, petals = [], settled = 0, last = 0, spawnAt = 0;
+  function measure(){ var r = scene.getBoundingClientRect(); W = r.width; H = r.height; }
+  measure();
+  window.addEventListener("resize", measure);
+  function spawn(now){
+    if(petals.length > 16) return;
+    var el = document.createElement("span");
+    var size = 9 + Math.random() * 10;
+    el.className = "petal" + (Math.random() < .35 ? " lit" : "");
+    el.style.width = size.toFixed(1) + "px";
+    el.style.height = (size * .78).toFixed(1) + "px";
+    el.style.left = (Math.random() * 96) + "%";
+    layer.appendChild(el);
+    var home = Math.random() < .65 ? .55 + Math.random() * .33 : null; /* most petals drift to Momo, asleep at her feet */
+    petals.push({ el: el, x: Math.random() * .96, y: -.04, vy: .018 + Math.random() * .016,
+      sway: 6 + Math.random() * 14, phase: Math.random() * 6.28, rot: Math.random() * 360,
+      vr: (Math.random() - .5) * 26, home: home, floor: home !== null ? .855 + Math.random() * .085 : .90 + Math.random() * .065, state: "fall", rest: 0, restFor: 4200 + Math.random() * 3800, born: now });
+  }
+  function tick(now){
+    requestAnimationFrame(tick);
+    if(!running || !W) return;
+    var dt = Math.min(50, now - (last || now)); last = now;
+    if(now >= spawnAt){ spawn(now); spawnAt = now + 750 + Math.random() * 850; }
+    for(var i = petals.length - 1; i >= 0; i--){
+      var p = petals[i];
+      if(p.state === "fall"){
+        p.y += p.vy * dt / 1000;
+        p.rot += p.vr * dt / 1000;
+        if(p.home !== null){ p.x += (p.home - p.x) * Math.min(1, dt / 2400); p.el.style.left = (p.x * 100).toFixed(2) + "%"; }
+        var dx = Math.sin(now / 1600 + p.phase) * p.sway;
+        if(p.y >= p.floor){
+          p.y = p.floor; p.state = "rest"; p.rest = now;
+          if(settled >= 6){ p.restFor = 900; } else { settled++; p.counted = true; }
+          p.el.style.transform = "translate(" + dx.toFixed(1) + "px," + (p.y * H).toFixed(1) + "px) rotate(" + (70 + (p.phase * 13) % 40).toFixed(0) + "deg)";
+          continue;
+        }
+        p.el.style.transform = "translate(" + dx.toFixed(1) + "px," + (p.y * H).toFixed(1) + "px) rotate(" + p.rot.toFixed(0) + "deg)";
+      } else {
+        var age = now - p.rest;
+        if(age > p.restFor - 1600) p.el.style.opacity = Math.max(0, 1 - (age - (p.restFor - 1600)) / 1600).toFixed(2);
+        if(age >= p.restFor){
+          if(p.counted) settled--;
+          layer.removeChild(p.el); petals.splice(i, 1);
+        }
+      }
+    }
+  }
+  requestAnimationFrame(tick);
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){ running = es[0].isIntersecting; last = 0; }, { threshold: .04 }).observe(scene);
+  }
+})();
+
+/* ---------- deep link on load ---------- */
+var startHash = (location.hash || "").slice(1);
+if(VIEWS.indexOf(startHash) > 0) showView(startHash);
+</script>
+</body>
+</html>
