@@ -8,7 +8,7 @@ A personal creative world at **mikmiksworld.com**. The second implementation rep
 - Twelve five-step art studies: perspective, characters, fashion, botanical drawing, ribbons, lettering, still life, comics, plush design, architecture, repeat patterns, and a favourite kitty warm-up.
 - Twenty-four open-ended art prompts and a working drawing studio with pencil, pen, translucent marker, eraser, line/rectangle/ellipse tools, colour choices, undo/redo, PNG export, exact vector persistence, and an editable gallery.
 - Sixteen five-step craft projects, material checklists, saved projects, and persistent progress. Includes friendship bracelets, origami, zines, weaving, crochet, set design, room moodboards, and cardboard engineering.
-- A private writing desk with six genres, twenty-four story sparks, outline notes, continuous local draft saving, cover choices, editable books, text exports, and browser print/PDF.
+- A private writing desk with six genres, twenty-four story sparks, outline notes, continuous local draft saving and an archive for multiple unfinished stories, cover choices, editable books, text exports, and browser print/PDF.
 - Fifty no-cook recipes with quantities, 1/2/4-portion scaling, search, pantry matching, favourites, personal notes, and completion records.
 - Enchanted, Blank Space, and Love Story: the original three piano-cover selections, with credits and opt-in visible YouTube playback that survives room navigation.
 - A local plush-character collection and links to the existing cousins’ sites.

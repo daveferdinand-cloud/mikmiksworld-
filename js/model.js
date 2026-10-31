@@ -4,12 +4,12 @@ export function localDay(date = new Date()) {
 }
 const dayNumber = day => Date.parse(`${day}T12:00:00Z`) / 86400000;
 export function freshState() {
-  return {version:2, draftStory:{title:'', genre:'Mystery', body:'', outline:'', cover:'cherry', id:null}, books:[], artDraft:{strokes:[],background:'#fffdf8'}, artworks:[], favoriteRecipes:[], recipeNotes:{}, completedRecipes:[], craftProgress:{}, finishedCrafts:[], savedCrafts:[], plushes:[], stats:{lastDay:null,streak:0,best:0}, lastRoom:'home'};
+  return {version:2, draftStory:{title:'', genre:'Mystery', body:'', outline:'', cover:'cherry', id:null}, drafts:[], books:[], artDraft:{strokes:[],background:'#fffdf8'}, artworks:[], favoriteRecipes:[], recipeNotes:{}, completedRecipes:[], craftProgress:{}, finishedCrafts:[], savedCrafts:[], plushes:[], stats:{lastDay:null,streak:0,best:0}, lastRoom:'home'};
 }
 export function normalizeState(input) {
   const out = freshState();
   if(!input || input.version !== 2) return out;
-  for(const key of ['books','artworks','favoriteRecipes','completedRecipes','finishedCrafts','savedCrafts','plushes']) {
+  for(const key of ['drafts','books','artworks','favoriteRecipes','completedRecipes','finishedCrafts','savedCrafts','plushes']) {
     if(Array.isArray(input[key])) out[key] = input[key];
   }
   for(const key of ['recipeNotes','craftProgress','stats','draftStory','artDraft']) {

@@ -3,10 +3,10 @@
 ## Automated verification completed
 
 - `npm run check`: JavaScript syntax checks.
-- `npm test`: eighteen tests, including seven simulated DOM journeys and eleven model/content tests.
+- `npm test`: nineteen tests, including eight simulated DOM journeys and eleven model/content tests.
 - `npm run build`: static output generation and validation of local runtime references.
 
-The tests cover route mounting and uncaught UI exceptions; saved/reloaded story drafts; escaped user text; editable books without duplication; recipe search, portions, favourites, notes, and completion; craft material/step persistence and meaningful completion; drawing stroke persistence, undo/redo, clear undo, and updating an existing gallery item; plush creation/editing; opt-in music and persistence during navigation; storage failures; local-day streaks; content depth; and quantity scaling.
+The tests cover route mounting and uncaught UI exceptions; saved/reloaded story drafts; escaped user text; editable books without duplication; recipe search, portions, favourites, notes, and completion; craft material/step persistence and meaningful completion; drawing stroke persistence, undo/redo, clear undo, and updating an existing gallery item; plush creation/editing; opt-in music and persistence during navigation; multiple archived story drafts; storage failures; local-day streaks; content depth; and quantity scaling.
 
 The drawing context in simulated DOM tests is mocked. These tests prove state and interaction behaviour, not actual pixels. Simulated DOM tests do not prove responsive layout, real canvas input, real YouTube playback, or browser print rendering.
 
